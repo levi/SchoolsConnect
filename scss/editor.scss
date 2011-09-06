@@ -1,0 +1,18 @@
+@import "base";
+@import "reset";
+
+.wysiwyg {
+	padding: 20px;
+	font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+	color: #666;
+}
+
+a {
+	color: $orange;
+}
+
+p {
+	font-size: 14px;
+	line-height: 22px;
+	margin-bottom: 1.33em;
+}

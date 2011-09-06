@@ -1,0 +1,1 @@
+Both a Wordpress theme and a Backbone.js app for schools to create clubs and raise money for disaster-effected schools.

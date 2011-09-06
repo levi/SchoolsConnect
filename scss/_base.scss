@@ -1,0 +1,158 @@
+@import "compass/css3";
+
+// Colors
+$orange: #ee841d;
+
+@mixin page_background {
+  background: url('images/gap-bg.jpg') no-repeat 0 0;
+  @include border-radius(5px);
+  width: 880px;
+  padding: 40px 40px 0 40px;
+}
+
+
+@mixin clearfix {
+  *display: inline-block;
+
+  &:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+@mixin content-box {
+  background: white;
+	@include box-shadow(rgba(black, 0.15), 0, 2px, 5px);
+}
+
+@mixin unselectable { 
+  -moz-user-select: -moz-none; 
+  -khtml-user-select: none; 
+  -webkit-user-select: none; 
+  -o-user-select: none; 
+  user-select: none; 
+}
+
+@mixin social_button {
+  @include unselectable;
+  background-color: #f6f6f6;
+  @include linear-gradient(color-stops(white, #f6f6f6));
+  @include single-text-shadow(white, 0, 1px, 0);
+  border: 1px solid #e3e3e3;
+  font-weight: bold;
+  @include border-radius(5px);
+  color: #666;
+
+  &:active {
+    @include linear-gradient(color-stops(white, #f6f6f6), bottom);
+    @include single-text-shadow(white, 0, -1px, 0);
+  }
+}
+
+@mixin social_school_title {
+  padding: 20px;
+  width: 224px;
+  font-size: 20px;
+  color: $orange;
+  margin: 0;
+}
+
+@mixin social_school($changeable: false, $size: large) {
+  @include unselectable;
+  @include content-box;
+  width: 264px;
+  margin-bottom: 20px;
+
+  h1 {
+    @include social_school_title;
+  }
+
+  h2 {
+    margin: 0;
+    
+    a {
+      @include social_school_title;
+      text-decoration: none;
+      display: block;
+      @if $size == small {
+        font-size: 16px;
+        padding: 15px;
+        width: 160px;
+        line-height: 24px;
+      }
+    }  
+  }
+
+  .profile_image {
+    position: relative;
+
+    @if $size == large {
+      width: 264px;
+      height: 198px;
+    } @else if $size == small {
+      width: 200px;
+      height: 150px;
+    }
+
+    @if $changeable == true {
+      .change_image {
+        position: absolute;
+        z-index: 100;
+        display: none;
+        background: black;
+        bottom: 20px;
+        right: 20px;
+        @include border-radius(20px);
+        text-decoration: none;
+        color: white;
+        padding: 3px 10px;
+      }
+
+      .loading {
+        display: none;
+        background: url('images/social/loader.gif') no-repeat center center;                      
+        @if $size == large {
+          width: 264px;
+          height: 198px;
+        } @else if $size == small {
+          width: 200px;
+          height: 150px;
+        }
+      }
+    }
+
+    .arrow {
+      display: block;
+      position: absolute;
+      height: 14px;
+      width: 24px;
+      top: 0;
+      @if $size == large {
+        left: 20px;
+      } @else if $size == small {
+        left: 15px;
+      }
+      background: url('images/social/profile_img_arrow.png') no-repeat 0 0;
+    }
+
+    img {
+      display: block;
+      @if $size == large {
+        width: 264px;
+        height: 198px;
+      } @else if $size == small {
+        width: 200px;
+        height: 150px;
+      }
+    }
+
+    &:hover {
+      .change_image {
+        display: block;
+      }
+    }
+  }
+}
