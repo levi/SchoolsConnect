@@ -102,33 +102,45 @@ get_header(); ?>
 		<h3>More info</h3>
 
 		<table>
-			<tr>
-				<th>Address</th>
-				<td>
-					<%= address %><br />
-					<%= city %>, <%= state %> <%= zipcode %>
-				</td>
-			</tr>
-			<tr>
-				<th>Club Advisor</th>
-				<td><%= advisor %></td>
-			</tr>
-			<tr>
-				<th>Club Leaders</th>
-				<td>
-					<% for (var i = 0; i < leaders.length; i++) { %>
-						<%= leaders[i] %><% if (i !== leaders.length - 1) { %><br /><% } %>
-					<% } %>
-				</td>
-			</tr>
-			<tr>
-				<th>Club Members</th>
-				<td>
-					<% for (var i = 0; i < members.length; i++) { %>
-						<%= members[i] %><% if (i !== members.length - 1) { %><br /><% } %>
-					<% } %>
-				</td>
-			</tr>
+			<% if (address) { %>
+				<tr>
+					<th>Address</th>
+					<td>
+						<%= address %><br />
+						<% if (address_2) { %><%= address_2 %><br /><% } %>
+						<%= city %>, <%= state %> <%= zipcode %>
+					</td>
+				</tr>
+			<% } %>
+
+			<% if (advisor) { %>
+				<tr>
+					<th>Club Advisor</th>
+					<td><%= advisor %></td>
+				</tr>
+			<% } %>
+
+			<% if (leaders.length !== 0) { %>
+				<tr>
+					<th>Club Leaders</th>
+					<td>
+						<% for (var i = 0; i < leaders.length; i++) { %>
+							<%= leaders[i] %><% if (i !== leaders.length - 1) { %><br /><% } %>
+						<% } %>
+					</td>
+				</tr>
+			<% } %>
+
+			<% if (members.length !== 0) { %>
+				<tr>
+					<th>Club Members</th>
+					<td>
+						<% for (var i = 0; i < members.length; i++) { %>
+							<%= members[i] %><% if (i !== members.length - 1) { %><br /><% } %>
+						<% } %>
+					</td>
+				</tr>
+			<% } %>
 		</table>
 	</div>
 </script>

@@ -14,7 +14,7 @@ class ProfileController extends RestController
 	protected function get()
 	{
 		$school_id = $this->request->getGuid();
-		$school_info = $this->db->get_row("SELECT * FROM {$this->db->prefix}school_info WHERE school_id = $school_id");
+		$school_info = $this->db->get_row( "SELECT * FROM {$this->db->prefix}school_info WHERE school_id = $school_id" );
 
 		if ($school_info) 
 		{
@@ -26,22 +26,25 @@ class ProfileController extends RestController
 				'image'      => $school_info->image,
 				'goal'       => (int) $school_info->goal,
 				'address'    => $school_info->address,
+				'address_2'  => $school_info->address_2,
 				'city'       => $school_info->city,
 				'state'      => $school_info->state,
 				'zipcode'    => $school_info->zipcode,
 				'advisor'    => $school_info->advisor,
-				'leaders'    => explode(', ', $school_info->leaders),
-				'members'    => explode(', ', $school_info->members),
+				'leaders'    => empty($school_info->leaders) ? array() : explode(', ', $school_info->leaders),
+				'members'    => empty($school_info->members) ? array() : explode(', ', $school_info->members),
 				'is_admin'   => (bool) ($school_info->school_id == $this->user->ID),
 			);
 
 			// School Updates (first 3)
 			$updates = $this->db->get_results( "SELECT * FROM {$this->db->prefix}school_updates WHERE school_id = $school_id ORDER BY created_at DESC LIMIT 3" );
 
-			if ($updates) {
-				foreach ($updates as $update) {
+			if ($updates) 
+      {
+				foreach ($updates as $update) 
+        {
 					$data['updates'] = array(
-						'id'		 => $update->id,
+						'id'		     => $update->id,
 						'title'      => $update->title,
 						'excerpt'    => $update->excerpt,
 						'content'    => $update->content,
@@ -56,10 +59,12 @@ class ProfileController extends RestController
 			// School Projects (all of them)
 			$projects = $this->db->get_results("SELECT * FROM {$this->db->prefix}school_projects WHERE school_id = $school_id ORDER BY created_at DESC");
 
-			if ($projects) {
-				foreach ($projects as $project) {
+			if ($projects) 
+      {
+				foreach ($projects as $project) 
+        {
 					$data['projects'] = array(
-						'id'		 => $project->id,
+						'id'		     => $project->id,
 						'name'       => $project->name,
 						'amount'     => $project->amount,
 						'created_at' => strtotime($project->created_at),

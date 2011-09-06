@@ -39,7 +39,7 @@ class RestUtils
 		$return_obj->setRequestVars($data);
 
 		if (isset($wp_query->query_vars['page']))
-			$return_obj->setGuid($wp_query->query_vars['page']);
+			$return_obj->setGuid((int) $wp_query->query_vars['page']);
 
 		if (isset($data['data'])) 
 			$return_obj->setData(json_decode($data['data']));

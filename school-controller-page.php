@@ -32,14 +32,6 @@ class InfoController extends RestController
 					'id'         => $school->school_id,
 					'name'       => $school->name,
 					'image'      => $school->image,
-					// 'goal'       => (int) $school->goal,
-					// 'address'    => $school->address,
-					// 'city'       => $school->city,
-					// 'state'      => $school->state,
-					// 'zipcode'    => $school->zipcode,
-					// 'advisor'    => $school->advisor,
-					// 'leaders'    => explode(', ', $school->leaders),
-					// 'members'    => explode(', ', $school->members)
 				);
 			}
 			RestUtils::sendResponse(200, json_encode($data));
@@ -48,35 +40,6 @@ class InfoController extends RestController
 		{
 			RestUtils::sendResponse(404);			
 		}	
-	}
-
-	protected function get()
-	{
-		$school_info = $this->db->get_row("SELECT * FROM {$this->db->prefix}school_info WHERE school_id = {$this->request->getGuid()}");
-
-		if ($school_info) 
-		{
-			$data = array(
-				'id'         => $school_info->school_id,
-				'name'       => $school_info->name,
-				'image'      => $school_info->image,
-				'goal'       => (int) $school_info->goal,
-				'address'    => $school_info->address,
-				'city'       => $school_info->city,
-				'state'      => $school_info->state,
-				'zipcode'    => $school_info->zipcode,
-				'advisor'    => $school_info->advisor,
-				'leaders'    => explode(', ', $school_info->leaders),
-				'members'    => explode(', ', $school_info->members),
-				'is_admin'   => (bool) ($school_info->school_id == $this->user->ID),
-			);
-
-			RestUtils::sendResponse(200, json_encode($data));			
-		}
-		else
-		{
-			RestUtils::sendResponse(404);			
-		}
 	}
 }
 
