@@ -91,7 +91,7 @@ get_header(); ?>
 	<h1><%= name %></h1>
 	<div id="profile_image">
 		<div class="change_image">Change Image</div>
-		<img src="<?php bloginfo('stylesheet_directory') ?>/lib/slir/w264-h198-c264:198/wp-content/uploads/profile_photos/<%= image %>" alt="<%= name %>" />
+		<img src="<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w200-h150-c200:150/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>" alt="<%= name %>" />
 		<div class="loading"></div>
 		<span class="arrow"></span>
 	</div>
