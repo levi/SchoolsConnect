@@ -256,15 +256,15 @@ get_header(); ?>
 </script>
 
 <script type="text/template" id="template-update-modal">
-	<div class="editor_pane update">
-		<div class="toolbar">
-			<a href="#" class="left close" title="Close Update">Close</a>
-			<a href="#" class="right delete" title="Delete Update">Delete</a>
+	<div class="modal-overlay">
+		<div class="modal-toolbar">
+			<a href="#" class="left close">&larr; Back to school's profile</a>
+			<a href="#" class="right delete">Delete</a>
 		</div>
-		<div class="editor">
-			<h2><%= title %></h2>
-			<span class="date"><%= formatted_created_at %></span>
-			<div class="entry_content">
+		<div class="modal-page">
+			<span class="entry-date"><%= formatted_created_at %></span>
+			<h2 class="entry-title"><%= title %></h2>
+			<div class="entry-content">
 				<%= content %>
 			</div>
 		</div>
@@ -273,5 +273,7 @@ get_header(); ?>
 
 
 <!-- /end Templates -->
+
+<?php $GLOBALS['footer_inline'] = "<script>$(function() { SC.init(); })</script>"; ?>
 
 <?php get_footer(); ?>

@@ -1,4 +1,4 @@
-SC.Router = Backbone.Router.extend({
+SC.Routers.Social = Backbone.Router.extend({
 	routes: {
 		'': 'index',
 		'/school/:id': 'page',
@@ -10,13 +10,21 @@ SC.Router = Backbone.Router.extend({
 	},
 
 	index: function() {
-		new SC.SchoolListView();
+		if (this.schools && this.schoolList) {
+			console.log('reset');
+			this.schools.fetch();
+		} else {
+			this.schools = new SC.Collections.Schools();
+			this.schoolList = new SC.Views.SchoolList({ 
+				collection: this.schools 
+			});
+		}
 	},
 
 	page: function(id) {
-		(new SC.SchoolModel({ id: id })).fetch({
+		(new SC.Models.School({ id: id })).fetch({
 			success: function(model, resp) {
-				new SC.ProfileView({ model: model });
+				new SC.Views.Profile({ model: model });
 			},
 			error: function() {
 				console.log('error');
@@ -25,18 +33,15 @@ SC.Router = Backbone.Router.extend({
 	},
 
 	update: function(id, permalink, update_id) {
-		var self = this;
-		self._loadProfile(id, function() {
-			self.update = new SC.UpdateModalView({ 
-				school_id: id, 
-				update_id: update_id, 
-				permalink: permalink 
-			});
-
-			self.update.bind('close', function() {
-				self.navigate('/school/'+self.school_id);
-			}, self);
+		this.update = new SC.Views.UpdateModal({ 
+			school_id: id, 
+			update_id: update_id, 
+			permalink: permalink 
 		});
+
+		this.update.bind('close', function() {
+			this.navigate('/school/'+this.school_id, true);
+		}, this);
 	},
 
 	_loadProfile: function(id, callback) {
@@ -54,7 +59,7 @@ SC.Router = Backbone.Router.extend({
 			}
 		}
 
-		this.profile = new SC.ProfileView({ model: this.school });
+		this.profile = new SC.Views.Profile({ model: this.school });
 		if (callback) this.profile.bind('loaded', callback, this);
 	}
 });

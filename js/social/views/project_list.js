@@ -1,4 +1,4 @@
-SC.ProjectsListView = Backbone.View.extend({
+SC.Views.ProjectsList = Backbone.View.extend({
   className: 'projects',
 
   template: _.template($('#template-projects-list').html()),
@@ -37,13 +37,13 @@ SC.ProjectsListView = Backbone.View.extend({
 
     if (project) options.model = project;
 
-    var view = new SC.ProjectView(options);
+    var view = new SC.Views.Project(options);
     this.$('.project_list').append(view.render().el);
   },
 
   create: function(evt) {
     evt.preventDefault();
-    this.editor = new SC.ProjectEditorView({ collection: this.collection });
+    this.editor = new SC.Views.ProjectEditor({ collection: this.collection });
     return false;
   },
 

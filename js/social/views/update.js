@@ -3,7 +3,7 @@
   
   Represents one single update list item to be used in the Updates List View.
 */
-SC.UpdateView = Backbone.View.extend({
+SC.Views.Update = Backbone.View.extend({
   className: 'update',
 
   template: _.template($('#template-update').html()),

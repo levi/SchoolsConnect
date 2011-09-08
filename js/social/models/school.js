@@ -1,4 +1,4 @@
-SC.SchoolModel = SC.ApplicationModel.extend({
+SC.Models.School = SC.Models.Application.extend({
 	_type: 'schools',
 
   completedCollections: 0,
@@ -14,14 +14,14 @@ SC.SchoolModel = SC.ApplicationModel.extend({
   _initCollections: function() {
     var self = this;
 
-    this.updates  = new SC.UpdatesList();
+    this.updates  = new SC.Collections.Updates();
     this.updates.baseUrl = function() {
-      return SC.UpdatesList.prototype.baseUrl.apply(self.updates)+'/'+self.id;
+      return SC.Collections.Updates.prototype.baseUrl.apply(self.updates)+'/'+self.id;
     };
 
-    this.projects = new SC.ProjectsList();
+    this.projects = new SC.Collections.Projects();
     this.projects.baseUrl = function() {
-      return SC.ProjectsList.prototype.baseUrl.apply(self.projects)+'/'+self.id;
+      return SC.Collections.Projects.prototype.baseUrl.apply(self.projects)+'/'+self.id;
     };
   },
 

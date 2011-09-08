@@ -1,4 +1,4 @@
-SC.UpdateModel = SC.ApplicationModel.extend({
+SC.Models.Update = SC.Models.Application.extend({
   _type: 'update',
 
   defaults: { 

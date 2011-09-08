@@ -1,7 +1,7 @@
 /*
 	Application Collection for inheritence. 
 */
-SC.ApplicationModel = Backbone.Model.extend({
+SC.Models.Application = Backbone.Model.extend({
   url: function() {
     var ret = SC.URL_BASE+'/'+this._type;
 

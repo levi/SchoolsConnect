@@ -1,4 +1,4 @@
-SC.ProjectEditorView = Backbone.View.extend({
+SC.Views.ProjectEditor = Backbone.View.extend({
   id: 'project_editor',
 
   template: _.template($('#template-project-editor').html()),
@@ -13,7 +13,7 @@ SC.ProjectEditorView = Backbone.View.extend({
     var self = this;
     _.bindAll(self, 'render', 'open', 'show', 'cancel', 'create', 'close');
   
-    self.model = self.model || new SC.ProjectModel();
+    self.model = self.model || new SC.Models.Project();
 
     self.collection.bind('add', self.close, self);
 
@@ -57,7 +57,7 @@ SC.ProjectEditorView = Backbone.View.extend({
     var self   = this,
         name   = self.$('#project_editor_name').val(),
         dollar = self.$('#project_editor_amount_dollar').val() || 0,
-        cent   = self.$('#project_editor_amount_cent').val() || 00,
+        cent   = self.$('#project_editor_amount_cent').val() || "00",
         amount = dollar+'.'+cent;
     
     self.model.save({ name: name, amount: amount }, {
@@ -68,7 +68,7 @@ SC.ProjectEditorView = Backbone.View.extend({
       error: function() {
         alert("ERROR! -- "+resp);            
       }
-    })
+    });
   },
 
   close: function() {
@@ -80,7 +80,7 @@ SC.ProjectEditorView = Backbone.View.extend({
         id  = $el.attr('id'),
         max = (id === 'project_editor_amount_cent') ? 99 : 999999999;
 
-    if  (e.which == 8 || e.which == 0 || e.which == 9) return  true;      
+    if  (e.which === 8 || e.which === 0 || e.which === 9) return  true;      
     if  (e.which < 48 || e.which > 57) return false;
 
     var dest = e.which - 48,

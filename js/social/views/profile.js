@@ -1,4 +1,4 @@
-SC.ProfileView = Backbone.View.extend({
+SC.Views.Profile = Backbone.View.extend({
 	el: $('#social_page'),
 
 	template: _.template($('#template-profile').html()),
@@ -11,10 +11,10 @@ SC.ProfileView = Backbone.View.extend({
 	render: function() {
 		$(this.el).html(this.template());
 
-		this.profileInfo = new SC.ProfileInfoView({ model: this.model });
-		this.chart = new SC.ChartView({ collection: this.model.projects, model: this.model });
-		this.projectsList = new SC.ProjectsListView({ collection: this.model.projects, model: this.model });
-		this.updatesList  = new SC.UpdatesListView({ collection: this.model.updates, model: this.model });
+		this.profileInfo = new SC.Views.ProfileInfo({ model: this.model });
+		this.chart = new SC.Views.Chart({ collection: this.model.projects, model: this.model });
+		this.projectsList = new SC.Views.ProjectsList({ collection: this.model.projects, model: this.model });
+		this.updatesList  = new SC.Views.UpdatesList({ collection: this.model.updates, model: this.model });
 
 		$(this.profileInfo.render().el).hide().appendTo($(this.el)).fadeIn('fast');
 		$(this.chart.render().el).hide().appendTo(this.$('.chart')).fadeIn('fast');

@@ -1,12 +1,12 @@
 /*
   Projects List Collection
 */
-SC.ProjectsList = SC.ApplicationCollection.extend({
+SC.Collections.Projects = SC.Collections.Application.extend({
   _type: 'projects',
 
   totalRaised: 0,
 
-  model: SC.ProjectModel,
+  model: SC.Models.Project,
 
   initialize: function() {
     _.bindAll(this, 'calculateTotal');

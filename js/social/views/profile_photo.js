@@ -1,7 +1,7 @@
 /*
   Profile Photo View
 */
-SC.ProfilePhotoView = Backbone.View.extend({
+SC.Views.ProfilePhoto = Backbone.View.extend({
   id: 'profile_photo',
 
   template: _.template($('#template-profile-photo').html()),

@@ -56,7 +56,6 @@
 		<?php load_backbone('collections'); ?>
 		<?php load_backbone('views'); ?>
 		<?php load_backbone('routers'); ?>
-		<script src="<?php bloginfo('stylesheet_directory') ?>/js/social/init.js"></script>
 		<?php endif ?>
 		<script src="<?php bloginfo('stylesheet_directory') ?>/js/tooltip.js"></script>
 		<script src="<?php bloginfo('stylesheet_directory') ?>/js/common.js"></script>

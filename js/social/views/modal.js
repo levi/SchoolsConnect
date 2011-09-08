@@ -1,11 +1,10 @@
-SC.ModalView = Backbone.View.extend({
-
+SC.Views.Modal = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, 'render', 'openModal', '_onOpen', '_onShow', '_onClose');
   },
 
   render: function() {
-    $(this.el).append(this.template(this.model.toJSON()));
+    $(this.el).html(this.template(this.model.toJSON()));
     return this;
   },
 

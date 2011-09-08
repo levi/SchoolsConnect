@@ -8,7 +8,7 @@
 
   @extends Backbone.View
 */
-SC.UpdateEditorView = Backbone.View.extend({
+SC.Views.UpdateEditor = Backbone.View.extend({
   id: 'update_editor',
 
   template: _.template($('#template-update-editor').html()),
@@ -22,7 +22,7 @@ SC.UpdateEditorView = Backbone.View.extend({
     var self = this;
     _.bindAll(self, 'render', 'publish', 'cancel', 'open', 'show', 'close');
 
-    self.model = self.model || new SC.UpdateModel();
+    self.model = self.model || new SC.Models.Update();
 
     self.collection.bind('add', self.close, self);
 

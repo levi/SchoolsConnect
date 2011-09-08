@@ -1,4 +1,4 @@
-SC.SchoolView = Backbone.View.extend({
+SC.Views.School = Backbone.View.extend({
 	template: _.template($('#template-school').html()),
 
 	className: 'school',

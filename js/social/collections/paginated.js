@@ -1,11 +1,10 @@
-SC.PaginatedCollection = SC.ApplicationCollection.extend({
+SC.Collections.Paginated = SC.Collections.Application.extend({
   initialize: function() {
-    _.bindAll(this, 'parse', 'fetch', 'url', 'pageInfo', 'loadMore');
+    _.bindAll(this, 'parse', 'url', 'pageInfo', 'loadMore');
     this.offset = 1;
   },
 
   parse: function(resp) {
-    console.log(resp.models);
     this.total = resp.total;
     this.offset = resp.offset;
     return resp.models;

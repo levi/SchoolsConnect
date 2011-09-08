@@ -1,4 +1,4 @@
-SC.ProjectModel = SC.ApplicationModel.extend({
+SC.Models.Project = SC.Models.Application.extend({
   _type: 'project',
 
   defaults: { 
@@ -7,13 +7,13 @@ SC.ProjectModel = SC.ApplicationModel.extend({
   },
 
   get: function(attr) {
-  	var attribute = this.attributes[attr];
+    var attribute = this.attributes[attr];
 
-  	if ((attr === 'created_at' || attr === 'updated_at') && typeof attribute === 'number') {
-  		this.attributes[attr] = new Date(attribute * 1000);
-  	}
+    if ((attr === 'created_at' || attr === 'updated_at') && typeof attribute === 'number') {
+      this.attributes[attr] = new Date(attribute * 1000);
+    }
 
-  	return this.attributes[attr];
+    return this.attributes[attr];
   }
   
 });

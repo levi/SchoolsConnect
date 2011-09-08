@@ -1,7 +1,7 @@
 /*
   Profile Info View
 */
-SC.ProfileInfoView = Backbone.View.extend({
+SC.Views.ProfileInfo = Backbone.View.extend({
   className: 'sidebar',
 
   template: _.template($('#template-profile-info').html()),
@@ -12,7 +12,7 @@ SC.ProfileInfoView = Backbone.View.extend({
   },
 
   render: function() {    
-    var profilePhoto = new SC.ProfilePhotoView({ model: this.model });
+    var profilePhoto = new SC.Views.ProfilePhoto({ model: this.model });
 
     $(this.el).html(profilePhoto.render().el)
               .append(this.template(this.model.toJSON()));

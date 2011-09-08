@@ -1227,6 +1227,73 @@ body.page .edit-link {
 // =Social Page
 // -----------------------------------------------------------
 
+body.modal-view {
+    background: #EDEDED;
+}
+
+.modal-overlay {
+    @extend body.modal-view;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.modal-toolbar {
+    @include clearfix;
+    max-width: 720px;
+    margin: 0 auto;
+    height: 58px;
+
+    a {
+        @include unselectable;
+        display: block;
+        height: 58px;
+        line-height: 58px;
+        text-decoration: none;
+        font-size: 16px;
+        color: #999;
+        cursor: pointer;
+
+        &.right {
+            float: right;
+        }
+
+        &.left {
+            float: left;
+        }
+    }
+}
+
+.modal-page {
+    @include content-box;
+    max-width: 680px;
+    padding: 20px;
+    margin: 0 auto;
+
+
+    .entry-title {
+        color: $orange;
+        font-weight: bold;
+        font-size: 32px;
+        line-height: 34px;
+        margin: 15px 0 10px 0;
+    }
+
+    .entry-date {
+        font-size: 14px;
+        color: #999;
+    }
+
+    .entry-content {
+        font-size: 16px;
+        line-height: 26px;
+        position: relative;
+    }
+}
+
 .social_overlay {
     background: black;
     @include opacity(0.6);

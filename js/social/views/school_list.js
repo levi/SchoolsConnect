@@ -1,4 +1,4 @@
-SC.SchoolListView = Backbone.View.extend({
+SC.Views.SchoolList = Backbone.View.extend({
 	el: $('#social_page'),
 
 	className: 'school_list',
@@ -12,7 +12,6 @@ SC.SchoolListView = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this, 'render', 'add', 'loadMore');
 
-		this.collection = new SC.SchoolList();
 		this.collection.bind('add', this.add, this);
 		this.collection.bind('reset', this.render, this);
 		this.collection.fetch();
@@ -28,8 +27,12 @@ SC.SchoolListView = Backbone.View.extend({
 		return this;
 	},
 
+  unrender: function() {
+    $(this.el).children().remove();
+  },
+
 	add: function(school) {
-		var view = new SC.SchoolView({ model: school }),
+		var view = new SC.Views.School({ model: school }),
 			$newView = $(view.render().el);
 	
 		$newView.css('opacity', 0);
