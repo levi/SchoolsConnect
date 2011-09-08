@@ -14,41 +14,49 @@ SC.UpdatesListView = Backbone.View.extend({
     'click .more a': 'loadMore'
   },
 
-  initialize: function(options) {
-    _.bindAll(this, 'render', 'addUpdate', 'create', 'loadMore');
-    
-    this.isAdmin = options.is_admin;
+  initialize: function() {
+    _.bindAll(this, 'render', 'addUpdate', 'create', 'loadMore', 'toggleLoading', 'removeMore', 'onLoadingComplete');
 
-    this.collection.bind('reset', this.render, this);
-    this.collection.bind('add', this.addUpdate, this);
+    this.collection.bind('add', this.addupdate, this);
     this.collection.bind('fetching', this.toggleLoading, this);
+    this.collection.bind('fetched', this.moreLoaded, this);
   },
 
   render: function(options) {
-    $(this.el).html(this.template({ isAdmin: this.isAdmin }));
+    var $template = $(this.template(this.model.toJSON()));
+
+    if (this.collection.pageInfo().more) {
+      $template.find('.more').show();
+    }
+
+    $(this.el).html($template);
 
     this.collection.each(function(model) {
-      this.addUpdate(model, self.collection, { nonAnimated: true });
+      this.addUpdate(model, { animated: false });
     }, this);
 
     return this;
   },
 
-  addUpdate: function(model, collection, options) {
+  addUpdate: function(model, options) {
     options || ( options = {} );
     var view  = new SC.UpdateView({ model: model }),
-        el    = view.render().el,
+        $el   = $(view.render().el),
         $list = this.$('.update-list');
     
     if (options.prepend) { 
-      $(el).hide().prependTo($list).slideDown('fast'); 
+      $el.hide().prependTo($list).slideDown('fast'); 
     } else { 
-      $(el).hide().appendTo($list);
-      if (options.nonAnimated) {
-        $(el).show(); 
+      $el.hide().appendTo($list);
+      if (options.animated) {
+        $el.slideDown('fast');
       } else {
-        $(el).slideDown('fast');
+        $el.show(); 
       }
+    }
+
+    if (this.collection.pageInfo().more) {
+      this.$('.more').slideDown('fast');
     }
   },
 
@@ -59,41 +67,30 @@ SC.UpdatesListView = Backbone.View.extend({
   },
 
   loadMore: function(evt) {
-    evt.preventDefault();
-    var self = this,
-        length = this.collection.length;
-
-    self.collection.fetch({ 
-      data: { offset: length },
-      add: true, 
-      success: function(collection) {
-        self.toggleLoading();
-        if (collection.length === length) self.removeMore();
-      }, 
-      error: function(collection, resp) {
-        console.log(resp);
-      } 
-    });
+    this.collection.loadMore();
+    return false;
   },
 
   toggleLoading: function() {
-    var self     = this,
-        $more    = self.$('.more'),
+    var $more    = this.$('.more'),
         $link    = $('a', $more),
         $loading = $('.loading', $more);
     
     $link.toggle();
     $loading.toggle();
 
-    return self;
+    return this;
   },
 
   removeMore: function() {
-    var self = this;
-    self.$('.more').slideUp('fast', function() {
+    this.$('.more').slideUp('fast', function() {
       $(this).remove();
     });
-    return self;
-  }
+    return this;
+  },
 
+  onLoadingComplete: function() {
+    this.toggleLoading();
+    if (!this.collection.pageInfo().more) this.removeMore();
+  }
 });

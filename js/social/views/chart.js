@@ -12,11 +12,11 @@ SC.ChartView = Backbone.View.extend({
 	render: function() {
 		if (this.model.get('goal') === undefined) return this;
 
-	    $(this.el).html(this.template({
-	    	goal: this.model.get('goal'),
-	    	total: this._formatNumber(Math.ceil(this.collection.totalRaised)),
-	    	completed: ((this.getPercentage() === "100%") ? true : false),
-	    	notStarted: ((this.getPercentage() === "0%") ? true : false)
+		$(this.el).html(this.template({
+			goal: this.model.get('goal'),
+			total: this._formatNumber(Math.ceil(this.collection.totalRaised)),
+			completed: ((this.getPercentage() === "100%") ? true : false),
+			notStarted: ((this.getPercentage() === "0%") ? true : false)
 	    }));
 	    this.showProgress();
 	    return this;

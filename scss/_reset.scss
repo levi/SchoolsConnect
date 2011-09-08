@@ -44,3 +44,8 @@ table {
 a img {
     border: none;
 }
+
+html { overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+::-moz-selection { background: $orange; color: #fff; text-shadow: none; }
+::selection { background: $orange; color: #fff; text-shadow: none; }

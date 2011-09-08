@@ -61,6 +61,27 @@ a img {
   border: none;
 }
 
+/* line 48, scss/_reset.scss */
+html {
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* line 50, scss/_reset.scss */
+::-moz-selection {
+  background: #ee841d;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* line 51, scss/_reset.scss */
+::selection {
+  background: #ee841d;
+  color: #fff;
+  text-shadow: none;
+}
+
 /* line 4, scss/editor.scss */
 .wysiwyg {
   padding: 20px;

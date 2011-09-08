@@ -1,8 +1,8 @@
 /*
-  Project List Collection
+  Projects List Collection
 */
-SC.ProjectList = SC.ApplicationCollection.extend({
-  _type: 'project',
+SC.ProjectsList = SC.ApplicationCollection.extend({
+  _type: 'projects',
 
   totalRaised: 0,
 

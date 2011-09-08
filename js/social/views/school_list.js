@@ -6,7 +6,7 @@ SC.SchoolListView = Backbone.View.extend({
 	template: _.template($('#template-school-list').html()),
 
 	events: {
-		'click #load_more a': 'loadMore'
+		'click .more a': 'loadMore'
 	},
 
 	initialize: function() {
@@ -21,25 +21,33 @@ SC.SchoolListView = Backbone.View.extend({
 	render: function() {
 		$(this.el).html(this.template(this.collection.pageInfo())).addClass(this.className);
 
-		this.$('#school_list').masonry({ 
-			itemSelector: '.school',
-			isAnimated: true
-		});
+		this.$('#school_list').masonry({ itemSelector: '.school' });
 
-		this.collection.each(function(school) {
-			this.add(school);
-		}, this);
+		this.collection.each(function(school) { this.add(school); }, this);
 
 		return this;
 	},
 
 	add: function(school) {
 		var view = new SC.SchoolView({ model: school }),
-			$rendered = $(view.render().el);
-		this.$('#school_list').append($rendered).masonry('reload');
+			$newView = $(view.render().el);
+	
+		$newView.css('opacity', 0);
+
+		this.$('#school_list').append($newView)
+							  .masonry('reload');
+
+		$newView.animate({ opacity: 1 }, 200, 'swing');
+
+		if (!this.collection.pageInfo().more) {
+			this.$('.more').fadeOut('fast', function() {
+				$(this).remove();
+			});
+		}
 	},
 
 	loadMore: function() {
+		console.log('loading more...');
 		this.collection.loadMore();
 		return false;
 	}

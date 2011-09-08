@@ -10,6 +10,9 @@ get_header(); ?>
 
 <div id="content" role="main">
 	<div id="social_page">
+		<div class="loading">
+			<img src="<?php bloginfo('stylesheet_directory') ?>/images/social/profile_loader.gif" alt="Loading..." />
+		</div>
 	</div>
 </div>
 
@@ -28,8 +31,9 @@ get_header(); ?>
 		<div id="school_list">
 		</div>
 		<% if (more) { %>
-			<div id="load_more">
-				<a href="#">Show More Schools</a>
+			<div class="more">
+				<a href="#" title="Click to show more schools">Show More Schools</a>
+				<div class="loading">Loading...</div>
 			</div>
 		<% } %>
 	</div>
@@ -72,27 +76,23 @@ get_header(); ?>
 </script>
 
 <script type="text/template" id="template-profile">
-	<% if (loading) { %>
-		<div class="loading">
-			<img src="<?php bloginfo('stylesheet_directory') ?>/images/social/profile_loader.gif" alt="Loading..." />
-		</div>
-	<% } else { %>
-		<div class="main_content">
-			<div id="fund_raising">
-				<div class="chart">
-					<h3>Money Raised</h3>
-				</div>
+	<div class="main_content">
+		<div id="fund_raising">
+			<div class="chart">
+				<h3>Money Raised</h3>
 			</div>
 		</div>
-	<% } %>
+	</div>
 </script>
 
 <script type="text/template" id="template-profile-photo">
 	<h1><%= name %></h1>
 	<div id="profile_image">
-		<div class="change_image">Change Image</div>
+		<% if (is_admin) { %>
+			<div class="change_image">Change Image</div>
+			<div class="loading"></div>
+		<% } %>
 		<img src="<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w200-h150-c200:150/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>" alt="<%= name %>" />
-		<div class="loading"></div>
 		<span class="arrow"></span>
 	</div>
 </script>
@@ -101,54 +101,60 @@ get_header(); ?>
 	<div id="meta_info">
 		<h3>More info</h3>
 
-		<table>
-			<% if (address) { %>
-				<tr>
-					<th>Address</th>
-					<td>
-						<%= address %><br />
-						<% if (address_2) { %><%= address_2 %><br /><% } %>
-						<%= city %>, <%= state %> <%= zipcode %>
-					</td>
-				</tr>
-			<% } %>
+		<% if (!isEmpty) { %>
+			<table>
+				<% if (address) { %>
+					<tr>
+						<th>Address</th>
+						<td>
+							<%= address %><br />
+							<% if (address_2) { %><%= address_2 %><br /><% } %>
+							<%= city %>, <%= state %> <%= zipcode %>
+						</td>
+					</tr>
+				<% } %>
 
-			<% if (advisor) { %>
-				<tr>
-					<th>Club Advisor</th>
-					<td><%= advisor %></td>
-				</tr>
-			<% } %>
+				<% if (advisor) { %>
+					<tr>
+						<th>Club Advisor</th>
+						<td><%= advisor %></td>
+					</tr>
+				<% } %>
 
-			<% if (leaders.length !== 0) { %>
-				<tr>
-					<th>Club Leaders</th>
-					<td>
-						<% for (var i = 0; i < leaders.length; i++) { %>
-							<%= leaders[i] %><% if (i !== leaders.length - 1) { %><br /><% } %>
-						<% } %>
-					</td>
-				</tr>
-			<% } %>
+				<% if (leaders.length !== 0) { %>
+					<tr>
+						<th>Club Leaders</th>
+						<td>
+							<% for (var i = 0; i < leaders.length; i++) { %>
+								<%= leaders[i] %><% if (i !== leaders.length - 1) { %><br /><% } %>
+							<% } %>
+						</td>
+					</tr>
+				<% } %>
 
-			<% if (members.length !== 0) { %>
-				<tr>
-					<th>Club Members</th>
-					<td>
-						<% for (var i = 0; i < members.length; i++) { %>
-							<%= members[i] %><% if (i !== members.length - 1) { %><br /><% } %>
-						<% } %>
-					</td>
-				</tr>
-			<% } %>
-		</table>
+				<% if (members.length !== 0) { %>
+					<tr>
+						<th>Club Members</th>
+						<td>
+							<% for (var i = 0; i < members.length; i++) { %>
+								<%= members[i] %><% if (i !== members.length - 1) { %><br /><% } %>
+							<% } %>
+						</td>
+					</tr>
+				<% } %>
+			</table>
+		<% } else { %>
+			<div class="blank">
+				<span>This school has not added any information</span>
+			</div>
+		<% } %>
 	</div>
 </script>
 
 <script type="text/template" id="template-projects-list">
 	<header>
 		<h3>School Projects</h3>
-		<% if (isAdmin) { %>
+		<% if (is_admin) { %>
 			<a href="#" class="create_project">Create New Project</a>
 		<% } %>
 	</header>
@@ -211,7 +217,7 @@ get_header(); ?>
 <script type="text/template" id="template-updates-list">
 	<header>
 		<h3>Recent Updates</h3>
-		<% if (isAdmin) { %>
+		<% if (is_admin) { %>
 			<a href="#" class="create_update">Create New Update</a>
 		<% } %>
 	</header>
@@ -250,19 +256,19 @@ get_header(); ?>
 </script>
 
 <script type="text/template" id="template-update-modal">
-<div class="editor_pane update">
-	<div class="toolbar">
-		<a href="#" class="left close" title="Close Update">Close</a>
-		<a href="#" class="right delete" title="Delete Update">Delete</a>
-	</div>
-	<div class="editor">
-		<h2><%= title %></h2>
-		<span class="date"><%= formatted_created_at %></span>
-		<div class="entry_content">
-			<%= content %>
+	<div class="editor_pane update">
+		<div class="toolbar">
+			<a href="#" class="left close" title="Close Update">Close</a>
+			<a href="#" class="right delete" title="Delete Update">Delete</a>
+		</div>
+		<div class="editor">
+			<h2><%= title %></h2>
+			<span class="date"><%= formatted_created_at %></span>
+			<div class="entry_content">
+				<%= content %>
+			</div>
 		</div>
 	</div>
-</div>
 </script>
 
 

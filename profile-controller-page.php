@@ -7,17 +7,19 @@
 require_once('social-page.php');
 
 /**
-* 
-*/
+ * Profile Controller
+ *
+ * Batch fetching of a school club's profile.
+ */
 class ProfileController extends RestController
 {
 	protected function get()
 	{
 		$school_id = $this->request->getGuid();
-		$school_info = $this->db->get_row( "SELECT * FROM {$this->db->prefix}school_info WHERE school_id = $school_id" );
+		$school_info = $this->db->get_row( $this->db->prepare( "SELECT * FROM {$this->db->prefix}school_info WHERE school_id = $school_id" ) );
 
 		if ($school_info) 
-		{
+    {
 			$data = array( 'updates' => array(), 'projects' => array() );
 
 			$data['school'] = array(
@@ -37,7 +39,7 @@ class ProfileController extends RestController
 			);
 
 			// School Updates (first 3)
-			$updates = $this->db->get_results( "SELECT * FROM {$this->db->prefix}school_updates WHERE school_id = $school_id ORDER BY created_at DESC LIMIT 3" );
+			$updates = $this->db->get_results( $this->db->prepare( "SELECT * FROM {$this->db->prefix}school_updates WHERE school_id = $school_id ORDER BY created_at DESC LIMIT 3" ) );
 
 			if ($updates) 
       {

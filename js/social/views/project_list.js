@@ -12,18 +12,16 @@ SC.ProjectsListView = Backbone.View.extend({
     'click .create_project': 'create'
   },
 
-  initialize: function(options) {
+  initialize: function() {
     _.bindAll(this, 'render', 'addProject', 'create', 'toggleBlankState');
 
-    this.isAdmin = options.is_admin;
-
     this.collection.bind('reset', this.render, this);
-    this.collection.bind('add', this.addProject, this)
+    this.collection.bind('add', this.addProject, this);
     this.collection.bind('all', this.toggleBlankState, this);
   },
 
   render: function() {
-    $(this.el).html(this.template({ isAdmin: this.isAdmin }));
+    $(this.el).html(this.template(this.model.toJSON()));
 
     if (this.collection.length > 0) {
       this.collection.each(this.addProject);
