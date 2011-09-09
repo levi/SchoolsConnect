@@ -5,20 +5,19 @@ SC.Routers.Social = Backbone.Router.extend({
 		'/school/:id/update/:permalink-:update_id': 'update'
 	},
 
-	initialize: function() {
+	initialize: function(schools) {
 		_.bindAll(this, 'index', 'page', 'update', '_loadProfile');
+		this.schools = new SC.Collections.Schools(schools.models, schools);
 	},
 
 	index: function() {
-		if (this.schools && this.schoolList) {
-			console.log('reset');
-			this.schools.fetch();
-		} else {
-			this.schools = new SC.Collections.Schools();
+		if (!this.schoolList) {
 			this.schoolList = new SC.Views.SchoolList({ 
 				collection: this.schools 
 			});
 		}
+
+		this.schoolList.render();
 	},
 
 	page: function(id) {

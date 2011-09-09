@@ -274,6 +274,28 @@ get_header(); ?>
 
 <!-- /end Templates -->
 
-<?php $GLOBALS['footer_inline'] = "<script>$(function() { SC.init(); })</script>"; ?>
+<?php
+
+$table = 'school_info';
+$schools = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}{$table} LIMIT 0, 9");
+
+$data = array( 'models' => array() );
+
+if ($schools) {
+	$school_count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}{$table};" ) );
+	$data['total'] = (int) $school_count;
+	$data['offset'] = 1;
+
+	foreach ($schools as $school) {
+		$data['models'][] = array(
+			'id'         => $school->school_id,
+			'name'       => $school->name,
+			'image'      => $school->image,
+		);
+	}
+}
+
+$GLOBALS['footer_inline'] = '<script>$(function() { SC.init('.json_encode($data).'); })</script>';
+?>
 
 <?php get_footer(); ?>

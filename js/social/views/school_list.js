@@ -14,7 +14,6 @@ SC.Views.SchoolList = Backbone.View.extend({
 
 		this.collection.bind('add', this.add, this);
 		this.collection.bind('reset', this.render, this);
-		this.collection.fetch();
 	},
 
 	render: function() {
