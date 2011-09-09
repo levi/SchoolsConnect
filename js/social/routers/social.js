@@ -32,14 +32,22 @@ SC.Routers.Social = Backbone.Router.extend({
 	},
 
 	update: function(id, permalink, update_id) {
-		this.update = new SC.Views.UpdateModal({ 
-			school_id: id, 
-			update_id: update_id, 
-			permalink: permalink 
-		});
+		// if (this.update) {
+		// 	if (this.update.get('school_id') == id) {
+				
+		// 	}
+		// } else {
+			this.update = new SC.Views.UpdateModal({ 
+				school_id: id, 
+				update_id: update_id, 
+				permalink: permalink 
+			});
+		// }
 
-		this.update.bind('close', function() {
-			this.navigate('/school/'+this.school_id, true);
+		var self = this;
+		this.update.bind('modal:closed', function() {
+			console.log('closed');
+			self.navigate('/school/'+id, true);
 		}, this);
 	},
 

@@ -44,7 +44,7 @@ get_header(); ?>
 				<?php $x = 0 ?>
 				<?php while ( $children->have_posts() ) : $children->the_post(); ?>
 					<?php $x++ ?>
-					<div id="child-post-<?php the_ID(); ?>" class="post childpost <?php echo ( $x % 2 == 0 ) ? 'even' : 'odd'; ?>">
+					<div id="child-post-<?php the_ID(); ?>" class="widget post childpost <?php echo ( $x % 2 == 0 ) ? 'even' : 'odd'; ?>">
 						<?php if ( has_post_thumbnail() ): ?>
 							<div class="feature_image">
 								<?php the_post_thumbnail('sub-page'); ?>
@@ -257,17 +257,19 @@ get_header(); ?>
 
 <script type="text/template" id="template-update-modal">
 	<div class="modal-overlay">
-		<div class="modal-toolbar">
-			<a href="#" class="left close">&larr; Back to school's profile</a>
-			<a href="#" class="right delete">Delete</a>
-		</div>
-		<div class="modal-page">
-			<span class="entry-date"><%= formatted_created_at %></span>
-			<h2 class="entry-title"><%= title %></h2>
-			<div class="entry-content">
-				<%= content %>
+		<% if (title) { %>
+			<div class="modal-toolbar">
+				<a href="#" class="left close">&larr; Back to school's profile</a>
+				<a href="#" class="right destroy">Delete</a>
 			</div>
-		</div>
+			<div class="modal-page">
+				<span class="entry-date"><%= formatted_created_at %></span>
+				<h2 class="entry-title"><%= title %></h2>
+				<div class="entry-content">
+					<%= content %>
+				</div>
+			</div>
+		<% } %>
 	</div>
 </script>
 

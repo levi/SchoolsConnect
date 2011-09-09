@@ -2,8 +2,11 @@ SC.Models.Update = SC.Models.Application.extend({
   _type: 'update',
 
   defaults: { 
+    'title': '',
+    'content': '',
     'created_at': new Date(),
-    'updated_at': new Date()
+    'updated_at': new Date(),
+    'formatted_created_at': ''
   },
 
   initialize: function() {
@@ -13,6 +16,8 @@ SC.Models.Update = SC.Models.Application.extend({
   },
 
   formatDates: function() {
+    if (!this.get('created_at')) return false;
+
     var monthNames    = ["January","February","March","April","May","June","July","August","September","October","November","December"],
         createdAt     = this.get('created_at'),
         dateCreatedAt = typeof createdAt === 'number' ? new Date(createdAt * 1000) : createdAt,
@@ -26,7 +31,7 @@ SC.Models.Update = SC.Models.Application.extend({
     });          
 
     // TODO: This function is called too many times. There is a binding error.
-    console.log(this.get('created_at').toString());
+    // console.log(this.get('created_at').toString());
 
     return this;
   }

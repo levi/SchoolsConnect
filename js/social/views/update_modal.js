@@ -1,61 +1,55 @@
 SC.Views.UpdateModal = SC.Views.Modal.extend({
-	el: $('body'),
+  template: _.template($('#template-update-modal').html()),
 
-	school_id: null,
+  events: {
+    'click .close': 'close',
+    'click .destroy': 'destroy'
+  },
 
-	template: _.template($('#template-update-modal').html()),
+  initialize: function(options) {
+    _.bindAll(this, 'render', 'unrender', '_toggleModal', 'close', 'destroy');
 
-	events: {
-		'click .close': 'close',
-		'click .delete': 'delete'
-	},
+    this.model = new SC.Models.Update({ id: options.update_id, school_id: options.school_id });
+    this.model.bind('change', this.render, this);
+    this.model.fetch();
 
-	initialize: function(options) {
-		_.bindAll(this, 'render', 'close', 'delete');
-		this.school_id = options.school_id;
-		this.model = new SC.Models.Update({ id: options.update_id, school_id: options.school_id });
-		this.model.bind('change', this.render, this);
-		this.model.fetch();
-
-    this.bind('close', this.unrender, this);
-	},
+    this.bind('modal:closing', this.unrender, this);
+    this.render();
+  },
 
   render: function() {
-    this.$('#header, #wrapper, #footer').hide();
-    $(this.el).addClass('modal-view');
-    $(this.el).append($(this.template(this.model.toJSON())));
+    var template = this.template(this.model.toJSON());
+    $(this.el).html(template);
+
+    this._toggleModal(false);
+
+    $('body').append(this.el);
   },
 
   unrender: function() {
-    $(this.el).remove($(this.template(this.model.toJSON())));
-    $(this.el).removeClass('modal-view');
-    this.$('#header, #wrapper, #footer').show();
+    this.remove();
+    this._toggleModal(true);
+    this.trigger('modal:closed');
   },
 
-	close: function(evt) {
-    evt.preventDefault();
-		this.trigger('close');
-		return false;
-	},
+  _toggleModal: function(show) {
+    console.log(show);
+    $('#header, #wrapper, #footer').toggle(show);
+    $('body').toggleClass('modal-view', !show); 
+  },
 
-	delete: function() {
-		var self = this;
-		this.model.destroy({
-			success: function() {
-				self.close();
-			}
-		});
-		return false;
-	},
+  close: function() {
+    this.trigger('modal:closing');
+    return false;
+  },
 
-	_openModal: function() {
-		var $el      = $(this.el),
-			$modal   = $(this.modalTemplate),
-			$overlay = $modal.filter('.social_overlay'),
-			$pane    = $modal.filter('.editor_pane');
-
-		$pane.appendTo($el).animate({ top: '40px' }, 600);
-
-		$overlay.appendTo($el).fadeIn('fast');
-	}
+  destroy: function() {
+    var self = this;
+    this.model.destroy({
+      success: function() {
+        self.close();
+      }
+    });
+    return false;
+  }
 });
