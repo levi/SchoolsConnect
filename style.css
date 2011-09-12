@@ -2109,7 +2109,7 @@ body.modal-view, .modal-overlay {
   float: right;
 }
 /* line 1553, scss/style.scss */
-#social_page .main_content #fund_raising {
+#social_page .main_content #fundraising {
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -2124,7 +2124,7 @@ body.modal-view, .modal-overlay {
   width: 596px;
 }
 /* line 1559, scss/style.scss */
-#social_page .main_content #fund_raising h3 {
+#social_page .main_content #fundraising h3 {
   padding-bottom: 20px;
   margin: 0;
   color: #666;
@@ -2133,11 +2133,11 @@ body.modal-view, .modal-overlay {
   text-transform: uppercase;
 }
 /* line 1568, scss/style.scss */
-#social_page .main_content #fund_raising .chart {
+#social_page .main_content #fundraising .chart {
   padding: 20px;
 }
 /* line 1572, scss/style.scss */
-#social_page .main_content #fund_raising .meter {
+#social_page .main_content #fundraising .meter {
   height: 44px;
   position: relative;
   -moz-border-radius: 5px;
@@ -2154,7 +2154,7 @@ body.modal-view, .modal-overlay {
   margin-bottom: 5px;
 }
 /* line 1580, scss/style.scss */
-#social_page .main_content #fund_raising .meter .not_started {
+#social_page .main_content #fundraising .meter .not_started {
   display: none;
   width: 100%;
   position: absolute;
@@ -2169,7 +2169,7 @@ body.modal-view, .modal-overlay {
   line-height: 44px;
 }
 /* line 1595, scss/style.scss */
-#social_page .main_content #fund_raising .meter .progress {
+#social_page .main_content #fundraising .meter .progress {
   display: block;
   height: 100%;
   width: 0;
@@ -2192,11 +2192,11 @@ body.modal-view, .modal-overlay {
   line-height: 44px;
 }
 /* line 1607, scss/style.scss */
-#social_page .main_content #fund_raising .meter .progress span {
+#social_page .main_content #fundraising .meter .progress span {
   display: none;
 }
 /* line 1612, scss/style.scss */
-#social_page .main_content #fund_raising .meter .amount {
+#social_page .main_content #fundraising .meter .amount {
   display: none;
   width: 113px;
   height: 60px;
@@ -2212,15 +2212,15 @@ body.modal-view, .modal-overlay {
   cursor: default;
 }
 /* line 1627, scss/style.scss */
-#social_page .main_content #fund_raising .meter .amount:hover {
+#social_page .main_content #fundraising .meter .amount:hover {
   opacity: 0.5;
 }
 /* line 1633, scss/style.scss */
-#social_page .main_content #fund_raising .meter_labels {
+#social_page .main_content #fundraising .meter_labels {
   *display: inline-block;
 }
 /* line 17, scss/_base.scss */
-#social_page .main_content #fund_raising .meter_labels:after {
+#social_page .main_content #fundraising .meter_labels:after {
   content: " ";
   display: block;
   height: 0;
@@ -2228,13 +2228,13 @@ body.modal-view, .modal-overlay {
   visibility: hidden;
 }
 /* line 1636, scss/style.scss */
-#social_page .main_content #fund_raising .meter_labels span {
+#social_page .main_content #fundraising .meter_labels span {
   display: block;
   color: #999;
   font-weight: bold;
 }
 /* line 1642, scss/style.scss */
-#social_page .main_content #fund_raising .meter_labels .lines {
+#social_page .main_content #fundraising .meter_labels .lines {
   padding: 0;
   height: 10px;
   border-left: 1px solid #e6e6e6;
@@ -2243,16 +2243,16 @@ body.modal-view, .modal-overlay {
   margin: 10px 0 5px 5px;
 }
 /* line 1651, scss/style.scss */
-#social_page .main_content #fund_raising .meter_labels .beginning {
+#social_page .main_content #fundraising .meter_labels .beginning {
   float: left;
 }
 /* line 1655, scss/style.scss */
-#social_page .main_content #fund_raising .meter_labels .ending {
+#social_page .main_content #fundraising .meter_labels .ending {
   float: right;
   text-align: right;
 }
 /* line 1661, scss/style.scss */
-#social_page .main_content #fund_raising .projects {
+#social_page .main_content #fundraising .projects {
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -2262,14 +2262,14 @@ body.modal-view, .modal-overlay {
   padding: 10px 20px 20px;
 }
 /* line 1666, scss/style.scss */
-#social_page .main_content #fund_raising .projects header {
+#social_page .main_content #fundraising .projects header {
   *display: inline-block;
   height: 44px;
   line-height: 44px;
   padding-bottom: 10px;
 }
 /* line 17, scss/_base.scss */
-#social_page .main_content #fund_raising .projects header:after {
+#social_page .main_content #fundraising .projects header:after {
   content: " ";
   display: block;
   height: 0;
@@ -2277,13 +2277,13 @@ body.modal-view, .modal-overlay {
   visibility: hidden;
 }
 /* line 1672, scss/style.scss */
-#social_page .main_content #fund_raising .projects header h3 {
+#social_page .main_content #fundraising .projects header h3 {
   float: left;
   padding: 0;
   line-height: 44px;
 }
 /* line 1678, scss/style.scss */
-#social_page .main_content #fund_raising .projects header .create_project {
+#social_page .main_content #fundraising .projects header .create_project {
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -2317,7 +2317,7 @@ body.modal-view, .modal-overlay {
   text-decoration: none;
 }
 /* line 49, scss/_base.scss */
-#social_page .main_content #fund_raising .projects header .create_project:active {
+#social_page .main_content #fundraising .projects header .create_project:active {
   background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #ffffff), color-stop(100%, #f6f6f6));
   background-image: -webkit-linear-gradient(bottom, #ffffff, #f6f6f6);
   background-image: -moz-linear-gradient(bottom, #ffffff, #f6f6f6);
@@ -2327,12 +2327,12 @@ body.modal-view, .modal-overlay {
   text-shadow: white 0 -1px 0;
 }
 /* line 1692, scss/style.scss */
-#social_page .main_content #fund_raising .projects .project_list {
+#social_page .main_content #fundraising .projects .project_list {
   list-style: none;
   margin: 0;
 }
 /* line 1696, scss/style.scss */
-#social_page .main_content #fund_raising .projects .project_list li {
+#social_page .main_content #fundraising .projects .project_list li {
   *display: inline-block;
   -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
@@ -2344,7 +2344,7 @@ body.modal-view, .modal-overlay {
   position: relative;
 }
 /* line 17, scss/_base.scss */
-#social_page .main_content #fund_raising .projects .project_list li:after {
+#social_page .main_content #fundraising .projects .project_list li:after {
   content: " ";
   display: block;
   height: 0;
@@ -2352,7 +2352,7 @@ body.modal-view, .modal-overlay {
   visibility: hidden;
 }
 /* line 1702, scss/style.scss */
-#social_page .main_content #fund_raising .projects .project_list li span {
+#social_page .main_content #fundraising .projects .project_list li span {
   display: block;
   font-weight: bold;
   font-size: 16px;
@@ -2360,7 +2360,7 @@ body.modal-view, .modal-overlay {
   padding: 10px 0;
 }
 /* line 1710, scss/style.scss */
-#social_page .main_content #fund_raising .projects .project_list li .project {
+#social_page .main_content #fundraising .projects .project_list li .project {
   width: 256px;
   padding-right: 20px;
   float: left;
@@ -2381,7 +2381,7 @@ body.modal-view, .modal-overlay {
   text-align: right;
 }
 /* line 1721, scss/style.scss */
-#social_page .main_content #fund_raising .projects .project_list li .amount_raised {
+#social_page .main_content #fundraising .projects .project_list li .amount_raised {
   padding-left: 20px;
   float: right;
   background: #e9e9e9;
@@ -2402,7 +2402,7 @@ body.modal-view, .modal-overlay {
   border-bottom-right-radius: 20px;
 }
 /* line 1732, scss/style.scss */
-#social_page .main_content #fund_raising .projects .project_list li .destroy {
+#social_page .main_content #fundraising .projects .project_list li .destroy {
   background: #999;
   -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
@@ -2423,7 +2423,7 @@ body.modal-view, .modal-overlay {
   display: none;
 }
 /* line 1748, scss/style.scss */
-#social_page .main_content #fund_raising .projects .project_list li.none {
+#social_page .main_content #fundraising .projects .project_list li.none {
   background: #bbb;
   color: white;
   text-align: center;

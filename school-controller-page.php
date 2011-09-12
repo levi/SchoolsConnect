@@ -14,7 +14,7 @@ class SchoolController extends RestController
 	{
 		$vars = $this->request->getRequestVars();
 		$offset = ((int) $vars['offset'] > 0) ? $vars['offset'] : 1;
-		$page_offset = ($offset - 1) * 9;
+		$page_offset = $offset * 9;
 		$schools = $this->db->get_results("SELECT * FROM {$this->db->prefix}{$this->table} LIMIT $page_offset, 9");
 		
 		if ($schools) 
@@ -30,6 +30,16 @@ class SchoolController extends RestController
 					'id'         => $school->school_id,
 					'name'       => $school->name,
 					'image'      => $school->image,
+					'goal'       => (int) $school->goal,
+					'address'    => $school->address,
+					'address_2'  => $school->address_2,
+					'city'       => $school->city,
+					'state'      => $school->state,
+					'zipcode'    => (int) $school->zipcode,
+					'advisor'    => $school->advisor,
+					'leaders'    => empty($school->leaders) ? array() : explode(', ', $school->leaders),
+					'members'    => empty($school->members) ? array() : explode(', ', $school->members),
+					'is_admin'   => (bool) ($school->school_id == $this->user->ID),
 				);
 			}
 			RestUtils::sendResponse(200, json_encode($data));

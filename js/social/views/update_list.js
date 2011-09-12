@@ -4,7 +4,7 @@
   Lists updates with a "more" pagination button to load via requests 
   more updates until there are no more.
 */
-SC.Views.UpdatesList = Backbone.View.extend({
+SC.Views.UpdateList = Backbone.View.extend({
   id: 'recent_updates',
 
   template: _.template($('#template-updates-list').html()),
@@ -18,6 +18,7 @@ SC.Views.UpdatesList = Backbone.View.extend({
     _.bindAll(this, 'render', 'addUpdate', 'create', 'loadMore', 'toggleLoading', 'removeMore', 'onLoadingComplete');
 
     this.collection.bind('add', this.addupdate, this);
+    this.collection.bind('reset', this.render, this);
     this.collection.bind('fetching', this.toggleLoading, this);
     this.collection.bind('fetched', this.moreLoaded, this);
   },

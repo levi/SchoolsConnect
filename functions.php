@@ -60,14 +60,12 @@ function schoolsconnect_setup() {
   add_image_size( 'sub-page-half', 420, 300, true );
 }
 
-function google_jquery()
+function disable_jquery()
 {
 	wp_deregister_script('jquery');
-	wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js', false, '1.6.2', true);
-	wp_enqueue_script('jquery');
 }
 
-add_action('wp_enqueue_scripts', 'google_jquery');
+add_action('wp_enqueue_scripts', 'disable_jquery');
 
 /*
 	Remove contact options that don't apply.

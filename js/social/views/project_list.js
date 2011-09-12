@@ -1,4 +1,4 @@
-SC.Views.ProjectsList = Backbone.View.extend({
+SC.Views.ProjectList = Backbone.View.extend({
   className: 'projects',
 
   template: _.template($('#template-projects-list').html()),

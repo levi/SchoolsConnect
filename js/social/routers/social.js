@@ -21,14 +21,8 @@ SC.Routers.Social = Backbone.Router.extend({
 	},
 
 	page: function(id) {
-		(new SC.Models.School({ id: id })).fetch({
-			success: function(model, resp) {
-				new SC.Views.Profile({ model: model });
-			},
-			error: function() {
-				console.log('error');
-			}
-		});
+		this.schools.selectSchool(id);
+		new SC.Views.Profile({ collection: this.schools });
 	},
 
 	update: function(id, permalink, update_id) {

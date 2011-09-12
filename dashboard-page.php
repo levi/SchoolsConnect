@@ -77,11 +77,12 @@ get_header(); ?>
 
 <script type="text/template" id="template-profile">
 	<div class="main_content">
-		<div id="fund_raising">
-			<div class="chart">
-				<h3>Money Raised</h3>
-			</div>
-		</div>
+	</div>
+</script>
+
+<script type="text/template" id="template-fundraising">
+	<div class="chart">
+		<h3>Money Raised</h3>
 	</div>
 </script>
 
@@ -278,6 +279,7 @@ get_header(); ?>
 
 <?php
 
+get_currentuserinfo();
 $table = 'school_info';
 $schools = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}{$table} LIMIT 0, 9");
 
@@ -293,6 +295,16 @@ if ($schools) {
 			'id'         => $school->school_id,
 			'name'       => $school->name,
 			'image'      => $school->image,
+			'goal'       => (int) $school->goal,
+			'address'    => $school->address,
+			'address_2'  => $school->address_2,
+			'city'       => $school->city,
+			'state'      => $school->state,
+			'zipcode'    => (int) $school->zipcode,
+			'advisor'    => $school->advisor,
+			'leaders'    => empty($school->leaders) ? array() : explode(', ', $school->leaders),
+			'members'    => empty($school->members) ? array() : explode(', ', $school->members),
+			'is_admin'   => (bool) ($school->school_id == $current_user->ID),
 		);
 	}
 }
