@@ -52,7 +52,6 @@ function schoolsconnect_setup() {
 	if ( !is_admin() ) 
 	{
 		wp_deregister_script( 'l10n' );
-		add_action('init', 'my_init_method'); 
 	}
 
   add_image_size( 'page-spread', 960, 600 );

@@ -6,7 +6,6 @@ SC.Views.Chart = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this, 'render', 'getPercentage', 'showProgress', 'showAmountTip');
 		this.collection.bind('total:calculated', this.render, this);
-		this.model.bind('change', this.render, this);
 	},
 
 	render: function() {

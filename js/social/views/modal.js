@@ -1,21 +1,40 @@
 SC.Views.Modal = Backbone.View.extend({
   initialize: function() {
-    _.bindAll(this, 'render', 'openModal', '_onOpen', '_onShow', '_onClose');
+    _.bindAll(this, 'render', 'unrender', 'close', '_toggleModal');
+  
+    this.bind('modal:closing', this.unrender, this);
+    this.render();
+  },
+
+  events: {
+    'click .close': 'close'
   },
 
   render: function() {
-    $(this.el).html(this.template(this.model.toJSON()));
-    return this;
+    var template = this.template(this.model.toJSON());
+    $(this.el).html(template);
+    if (this.didRenderTemplate) this.didRenderTemplate();
+
+    this._toggleModal(false);
+
+    $('body').append(this.el);
   },
 
-  openModal: function() {
-    $.modal(this.render().el, { 
-      overClose: true, 
-      position: ['80px', ''],
-      onOpen: self._onOpen,
-      onShow: self._onShow, 
-      onClose: self._onClose
-    });
+  unrender: function() {
+    this.remove();
+    this._toggleModal(true);
+    this.trigger('modal:closed');
+  },
+
+  close: function() {
+    this.trigger('modal:closing');
+    return false;
+  },
+
+  _toggleModal: function(show) {
+    console.log(show);
+    $('#header, #wrapper, #footer').toggle(show);
+    $('body').toggleClass('modal-view', !show); 
   },
 
   _onOpen: function(dialog) {

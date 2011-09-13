@@ -1,8 +1,5 @@
 <?php
-/**
- * Template Name: Profile Photo Uploader
- *
- */
+require_once('../../../wp-blog-header.php');
 
 class UploadPhoto
 {
@@ -11,7 +8,6 @@ class UploadPhoto
 	private $db;
 
 	public $guid;
-	public $script_dir;
 	public $upload_dir;
 
 	private $type;
@@ -22,8 +18,8 @@ class UploadPhoto
 		$this->user = $user;
 		$this->db = $db;
 
-		$this->script_dir = substr($_SERVER['SCRIPT_FILENAME'], 0, strrpos($_SERVER['SCRIPT_FILENAME'], '/'));
-		$this->upload_dir = $this->script_dir.'/wp-content/uploads/profile_photos';
+		$upload_dir = wp_upload_dir();
+		$this->upload_dir = $upload_dir['basedir'].'/profile_photos';
 	}
 
 	public function process_upload()
@@ -32,7 +28,7 @@ class UploadPhoto
 
 		if ($_FILES['userfile']['size'] > self::MAX_SIZE) 
 		{
-			echo json_encode(array('error' => 'File is too big to upload. Needs to be under 3MB.'));
+			echo json_encode(array('error' => 'Image is too big to upload. Needs to be 3MB or less.'));
 			exit;
 		}
 
@@ -57,28 +53,33 @@ class UploadPhoto
 				if ( move_uploaded_file($tmp_name, $filepath) ) 
 				{
 					if ($this->db->update( $this->db->prefix.'school_info', 
-									   array( 'image' => $this->filename ), 
-									   array( 'school_id' => $this->user->ID ) )) {
+										   array( 'image' => $this->filename ), 
+										   array( 'school_id' => $this->user->ID ) )) 
+					{
 						echo json_encode( array( 'image' => $this->filename ) );
+						exit;
 					}
 					else
 					{
-						throw new Exception("Failed to save to DB");
+						echo json_encode( array( 'error' => 'Failed to upload.' ) );
+						exit;
 					}
 				}
 				else
 				{
-					echo json_encode( array( 'error' => 'Failed to upload.' ) );
+					echo json_encode( array( 'error' => 'Image failed to be saved.' ) );
+					exit;
 				}
 			}
 			else
 			{
-				echo json_encode( array( 'error' => 'Wrong file type. Only jpg, png, and gif supported.' ) );				
+				echo json_encode( array( 'error' => 'Wrong image type. Only jpg, png, and gif are supported.' ) );
+				exit;
 			}
 		}
 		else 
 		{
-			echo json_encode(array('error' => 'Not properly uploaded.'));
+			echo json_encode(array('error' => 'No image uploaded.'));
 			exit;
 		}
 

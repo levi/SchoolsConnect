@@ -7,9 +7,13 @@ SC.Views.ProfilePhoto = Backbone.View.extend({
   template: _.template($('#template-profile-photo').html()),
 
   initialize: function() {
-    _.bindAll(this, 'render', 'uploadingImage', 'newImage');
+    _.bindAll(this, 'render', 'openModal', 'uploadingImage', 'newImage');
     this.bind('uploading', this.uploadingImage, this);
     this.bind('uploaded', this.newImage, this);
+  },
+
+  events: {
+    'click .change_image': 'openModal'
   },
 
   render: function() {
@@ -34,6 +38,10 @@ SC.Views.ProfilePhoto = Backbone.View.extend({
     //   });
 
     return this;
+  },
+
+  openModal: function() {
+    this.modal = new SC.Views.PhotoModal({ model: this.model });
   },
 
   uploadingImage: function() {

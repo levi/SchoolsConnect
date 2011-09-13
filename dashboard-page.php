@@ -86,15 +86,41 @@ get_header(); ?>
 	</div>
 </script>
 
+<script type="text/template" id="template-image-url">
+<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w264-h198-c264:198/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>
+</script>
+
 <script type="text/template" id="template-profile-photo">
 	<h1><%= name %></h1>
 	<div id="profile_image">
 		<% if (is_admin) { %>
 			<div class="change_image">Change Image</div>
-			<div class="loading"></div>
 		<% } %>
-		<img src="<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w200-h150-c200:150/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>" alt="<%= name %>" />
+		<img src="<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w264-h198-c264:198/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>" alt="<%= name %>" />
 		<span class="arrow"></span>
+	</div>
+</script>
+
+<script type="text/template" id="template-photo-modal">
+	<div class="modal-overlay">
+		<div class="modal-toolbar">
+			<a href="#" class="left close">&larr; Back to your school's profile</a>
+		</div>
+		<div class="modal-page">
+			<div class="left">
+				<img src="<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w264-h198-c264:198/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>" alt="<%= name %>" />
+				<div class="loader"></div>
+			</div>
+
+			<div class="right">
+				<form action="<?php bloginfo('stylesheet_directory') ?>/photo_upload.php" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
+					<h3>Upload a new profile photo from your computer:</h3>
+					<input name="userfile" id="userfile" type="file" />
+					<input type="submit" value="Upload Photo" />
+					<em>By uploading an image you certify that you have the right to distribute it and that it does not contain any violent or pornographic material.</em>
+				</form>
+			</div>
+		</div>
 	</div>
 </script>
 
@@ -273,7 +299,6 @@ get_header(); ?>
 		<% } %>
 	</div>
 </script>
-
 
 <!-- /end Templates -->
 
