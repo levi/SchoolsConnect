@@ -1,5 +1,5 @@
 SC.Models.Project = SC.Models.Application.extend({
-  _type: 'project',
+  _type: 'projects',
 
   defaults: { 
     'created_at': new Date(),

@@ -9,6 +9,8 @@ SC.Views.UpdateList = Backbone.View.extend({
 
   template: _.template($('#template-updates-list').html()),
 
+  blankTemplate: _.template($('#template-blank-update').html()),
+
   events: {
     'click .create_update': 'create',
     'click .more a': 'loadMore'
@@ -21,6 +23,7 @@ SC.Views.UpdateList = Backbone.View.extend({
     this.collection.bind('reset', this.render, this);
     this.collection.bind('fetching', this.toggleLoading, this);
     this.collection.bind('fetched', this.moreLoaded, this);
+    this.collection.bind('all', this.toggleBlankState, this);
   },
 
   render: function(options) {
@@ -63,7 +66,7 @@ SC.Views.UpdateList = Backbone.View.extend({
 
   create: function(evt) {
     evt.preventDefault();
-    this.updateEditor = new SC.Views.UpdateEditor({ collection: this.collection });
+    // this.updateEditor = new SC.Views.UpdateEditorModal({ collection: this.collection });
     return false;
   },
 
@@ -93,5 +96,17 @@ SC.Views.UpdateList = Backbone.View.extend({
   onLoadingComplete: function() {
     this.toggleLoading();
     if (!this.collection.pageInfo().more) this.removeMore();
+  },
+
+  toggleBlankState: function() {
+    var $listElement    = this.$('.update-list'),
+        $blankElement   = this.$('.update-list .none'); 
+
+    if (this.collection.length === 0) {
+      $listElement.children().remove();
+      $listElement.append(this.blankTemplate);
+    } else {
+      if ($blankElement.length > 0) $blankElement.remove();
+    }
   }
 });

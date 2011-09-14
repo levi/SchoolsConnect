@@ -184,23 +184,23 @@ get_header(); ?>
 	<header>
 		<h3>School Projects</h3>
 		<% if (is_admin) { %>
-			<a href="#" class="create_project">Create New Project</a>
+			<a href="#" class="create-project">Create New Project</a>
 		<% } %>
 	</header>
 
-	<ul class="project_list"></ul>
+	<ul class="project-list"></ul>
 </script>
 
 <script type="text/template" id="template-project">
 	<li>
 		<span class="project"><%= name %></span>
-		<span class="amount_raised">$<%= amount %></span>
+		<span class="amount-raised">$<%= amount %></span>
 		<a href="#" class="destroy">x</a>
 	</li>
 </script>
 
 <script type="text/template" id="template-blank-project">
-	<li class="none">This school has not recorded any projects</li>
+	<li class="none">This school has not posted any projects</li>
 </script>
 
 <script type="text/template" id="template-project-editor">
@@ -263,6 +263,10 @@ get_header(); ?>
 	<h2><a href="/teamup/#/school/<%= school_id %>/update/<%= permalink %>-<%= id %>" title="Click to read <%= title %>"><%= title %></a></h2>
 	<span class="date"><%= formatted_created_at %></span>
 	<p><%= excerpt %></p>
+</script>
+
+<script type="text/template" id="template-blank-update">
+	<div class="none">This school has not posted any updates</div>
 </script>
 
 <script type="text/template" id="template-update-editor">

@@ -9,7 +9,7 @@ SC.Views.ProjectList = Backbone.View.extend({
   blankTemplate: $('#template-blank-project').html(),
 
   events: {
-    'click .create_project': 'create'
+    'click .create-project': 'create'
   },
 
   initialize: function() {
@@ -38,18 +38,18 @@ SC.Views.ProjectList = Backbone.View.extend({
     if (project) options.model = project;
 
     var view = new SC.Views.Project(options);
-    this.$('.project_list').append(view.render().el);
+    this.$('.project-list').append(view.render().el);
   },
 
   create: function(evt) {
     evt.preventDefault();
-    this.editor = new SC.Views.ProjectEditor({ collection: this.collection });
+    this.editor = new SC.Views.ProjectEditorModal({ collection: this.collection });
     return false;
   },
 
   toggleBlankState: function() {
-    var $listElement    = this.$('.project_list'),
-        $blankElement   = this.$('.project_list .none'); 
+    var $listElement    = this.$('.project-list'),
+        $blankElement   = this.$('.project-list .none'); 
 
     if (this.collection.length === 0) {
       $listElement.children().remove();
