@@ -19,11 +19,13 @@ get_header(); ?>
 <!-- Templates -->
 
 <script type="text/template" id="template-school">
-	<h2><a href="/teamup/#/school/<%= id %>"><%= name %></a></h2>
-	<div class="profile_image">
+	<a href="/teamup/#/school/<%= id %>">
 		<img src="<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w200-h150-c200:150/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>" alt="<%= name %>" />
-		<span class="arrow"></span>
-	</div>
+		<strong class="name"><%= name %></strong>
+		<% if (city) { %>
+			<span class="location"><%= city %>, <%= state %></span>
+		<% } %>
+	</a>
 </script>
 
 <script type="text/template" id="template-school-list">
@@ -306,7 +308,7 @@ get_header(); ?>
 
 get_currentuserinfo();
 $table = 'school_info';
-$schools = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}{$table} LIMIT 0, 9");
+$schools = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}{$table} LIMIT 0, 12");
 
 $data = array( 'models' => array() );
 
