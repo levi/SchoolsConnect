@@ -6,14 +6,17 @@ SC.Models.Project = SC.Models.Application.extend({
     'updated_at': new Date()
   },
 
-  get: function(attr) {
-    var attribute = this.attributes[attr];
+  parse: function(resp) {
+    resp.created_at = new Date(resp.created_at);
+    resp.updated_at = new Date(resp.updated_at);
+    return resp;
+  },
 
-    if ((attr === 'created_at' || attr === 'updated_at') && typeof attribute === 'number') {
-      this.attributes[attr] = new Date(attribute * 1000);
-    }
+  validate: function(attrs) {
+    if (!attrs.name)
+      return "project must have a name.";
 
-    return this.attributes[attr];
+    if (parseFloat(attrs.amount) < 1.00)
+      return "amount raised must be more than $1.";
   }
-  
 });

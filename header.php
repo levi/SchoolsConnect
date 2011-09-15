@@ -64,7 +64,7 @@
 				<nav>
 					<ul>
 						<li><a href="http://www.freetellafriend.com/?share" title="Share SchoolsConnect with People You Know" id="tellafriend">Tell People You Know</a></li>
-						<li><a href="/teamup/#/school/<?php echo $current_user->ID ?>" title="Your Dashboard">Your School's Profile</a></li>
+						<li><a href="/teamup#school/<?php echo $current_user->ID ?>" title="Your Dashboard">Your School's Profile</a></li>
 						<li><a href="<?php bloginfo('site_url') ?>/?a=logout" title="Logout">Logout</a></li>
 					</ul>
 				</nav>

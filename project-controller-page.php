@@ -33,8 +33,8 @@ class ProjectController extends RestController
 					'id'		 => (int) $project->id,
 					'name'       => $project->name,
 					'amount'     => $project->amount,
-					'created_at' => strtotime($project->created_at),
-					'updated_at' => strtotime($project->updated_at),
+					'created_at' => strtotime($project->created_at)*1000,
+					'updated_at' => strtotime($project->updated_at)*1000,
 				);
 			}
 		}
@@ -77,6 +77,14 @@ class ProjectController extends RestController
 
 		if ($this->db->insert( $this->db->prefix.$this->table, $data )) 
 		{
+			foreach ($data as $key => $value) {
+				switch ($key) {
+					case 'created_at':
+					case 'updated_at':
+						$data[$key] = (int) strtotime($value)*1000;
+					break;
+				}
+			}
 			RestUtils::sendResponse(201, json_encode($data));
 		}
 		else

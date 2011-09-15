@@ -12,6 +12,8 @@ SC.Views.ProjectEditorModal = SC.Views.Modal.extend({
   initialize: function() {
     _.bindAll(this, 'render', 'create', 'forceNumeric');
     this.collection.bind('add', this.close, this);
+    this.model = this.model || new SC.Models.Project();
+    this.model.bind('error', this.validationError, this);
     SC.Views.Modal.prototype.initialize.call(this);
   },
 
@@ -32,17 +34,16 @@ SC.Views.ProjectEditorModal = SC.Views.Modal.extend({
         dollar = this.$('#project_editor_amount_dollar').val() || 0,
         cent   = this.$('#project_editor_amount_cent').val() || "00",
         amount = dollar+'.'+cent;
-
-    this.model = this.model || new SC.Models.Project();
     
     this.model.save({ name: name, amount: amount }, {
       success: function(model, resp) {
         self.collection.add(model);
-      },
-      error: function(resp) {
-        alert("ERROR! -- "+resp);            
       }
     });
+  },
+
+  validationError: function(model, error) {
+    alert("Sorry, the "+error);
   },
 
   forceNumeric: function(e) {

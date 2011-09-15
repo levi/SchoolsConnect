@@ -16,9 +16,15 @@ SC.Collections.Projects = SC.Collections.Application.extend({
     this.bind('remove', this.calculateTotal, this);
   },
 
+  parse: function(resp) {
+    resp = _.map(resp, function(model) {
+      return SC.Models.Project.prototype.parse.call(this, model);
+    }, this);
+    return resp;
+  },
+
   comparator: function(project) {
-    console.log(project.get('created_at'));
-    return -(project.get('created_at').getTime());
+    return project.get('created_at').getTime();
   },
 
   calculateTotal: function() {

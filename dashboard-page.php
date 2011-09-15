@@ -207,7 +207,7 @@ get_header(); ?>
 		<div class="modal-toolbar">
 			<a href="#" class="left cancel">&larr; Cancel</a>
 		</div>
-		<div class="modal-page">
+		<div class="modal-page editor">
 			<form action="#" method="post">
 				<p>
 					<label>Project Name</label>
@@ -226,7 +226,7 @@ get_header(); ?>
 						<label for="amount_cent">Cents</label>
 					</span>
 				</p>
-				<p>
+				<p class="submit">
 					<input type="submit" value="Create Project" />
 				</p>
 			</form>
