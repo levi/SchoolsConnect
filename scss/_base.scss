@@ -62,6 +62,7 @@ $orange: #ee841d;
 @mixin social_school($changeable: false, $size: large) {
   @include unselectable;
   @include content-box;
+  cursor: default;
   width: 264px;
   margin-bottom: 20px;
 

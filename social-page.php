@@ -7,7 +7,8 @@
 get_currentuserinfo();
 
 /**
-* 
+* Utitlity to parse a REST request and dispatch data into
+* the right instance vars for return processing.
 */
 class RestUtils
 {
@@ -26,6 +27,7 @@ class RestUtils
 			break;
 			
 			case 'post':
+				$return_obj->setData( json_decode( file_get_contents('php://input') ) );
 				$data = $_POST;
 			break;
 			
@@ -40,9 +42,6 @@ class RestUtils
 
 		if (isset($wp_query->query_vars['page']))
 			$return_obj->setGuid((int) $wp_query->query_vars['page']);
-
-		if (isset($data['data'])) 
-			$return_obj->setData(json_decode($data['data']));
 
 		return $return_obj;
 	}

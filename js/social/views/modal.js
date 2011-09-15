@@ -11,7 +11,7 @@ SC.Views.Modal = Backbone.View.extend({
   },
 
   render: function() {
-    var template = this.template(this.model.toJSON());
+    var template = template || this.template(this.model.toJSON());
     $(this.el).html(template);
     if (this.didRenderTemplate) this.didRenderTemplate();
 
@@ -32,7 +32,6 @@ SC.Views.Modal = Backbone.View.extend({
   },
 
   _toggleModal: function(show) {
-    console.log(show);
     $('#header, #wrapper, #footer').toggle(show);
     $('body').toggleClass('modal-view', !show); 
   },

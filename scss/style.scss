@@ -1193,7 +1193,6 @@ body.modal-view {
     padding: 20px;
     margin: 0 auto;
 
-
     .entry-title {
         color: $orange;
         font-weight: bold;
@@ -1211,6 +1210,80 @@ body.modal-view {
         font-size: 16px;
         line-height: 26px;
         position: relative;
+    }
+
+    form {
+        label {
+            display: block;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        input {
+            font-family: 'Helvetica Neue', 'Helvetica', Arial, san-serif;
+            font-size: 18px;
+            width: 660px;
+            padding: 10px;
+        }
+
+        textarea {
+            width: 728px;
+        }
+
+        p {
+            @include clearfix;
+
+            span {
+                float: left;
+
+                label {
+                    display: block;
+                    clear: both;
+                    text-transform: none;
+                    font-weight: normal;
+                    font-size: 12px;
+                }
+
+                &.symbol {
+                    line-height: 18px;
+                    font-size: 18px;
+                }
+            }
+        }
+
+        p:last-child {
+          margin-bottom: 0;
+        }
+
+        p.inline {
+            @include clearfix;
+
+            strong {
+                font-size: 18px;
+                line-height: 48px;
+                float: left;
+                margin-right: 10px;
+            }
+
+            input {
+                width: auto;
+                float: left;
+                margin-right: 10px;
+
+
+                &#project_editor_amount_dollar {
+                    width: 92px; 
+                    text-align: right;
+                }
+
+                &#project_editor_amount_cent {
+                    width: 22px; 
+                }
+            }
+        }
     }
 }
 
@@ -1263,18 +1336,6 @@ body.modal-view {
             margin-bottom: 20px;
         }
     }
-}
-
-.social_overlay {
-    background: black;
-    @include opacity(0.6);
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    display: none;
 }
 
 .editor_pane {
@@ -1363,61 +1424,6 @@ body.modal-view {
         @include border-bottom-left-radius(5px);
         @include border-bottom-right-radius(5px);
 
-        label {
-            display: block;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        label.placeholder {
-            display: inline;
-            cursor: text;
-            padding: 4px 4px 4px 4px;
-            color: #999999;
-        }
-
-        input {
-            font-family: 'Helvetica Neue', 'Helvetica', Arial, san-serif;
-            font-size: 18px;
-            width: 708px;
-            padding: 10px;
-        }
-
-        textarea {
-            width: 728px;
-        }
-
-        p:last-child {
-          margin-bottom: 0;
-        }
-
-        p.inline {
-            @include clearfix;
-
-            strong {
-                font-size: 18px;
-                line-height: 48px;
-                float: left;
-                margin-right: 10px;
-            }
-
-            input {
-                width: auto;
-                float: left;
-                margin-right: 10px;
-
-
-                &#project_editor_amount_dollar {
-                    width: 92px; 
-                    text-align: right;
-                }
-
-                &#project_editor_amount_cent {
-                    width: 22px; 
-                }
-            }
-        }
     }
 }
 
