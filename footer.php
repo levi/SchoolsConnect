@@ -35,6 +35,7 @@
 
 		<?php if (is_user_logged_in()): ?>
 		<script src="<?php bloginfo('stylesheet_directory') ?>/js/backbone.js"></script>
+		<script src="<?php bloginfo('stylesheet_directory') ?>/js/libs/json2.js"></script>
 		<?php
 			function load_backbone($type)
 			{
