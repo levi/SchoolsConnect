@@ -1,8 +1,8 @@
 SC.Routers.Social = Backbone.Router.extend({
 	routes: {
 		'': 'index',
-		'/school/:id': 'page',
-		'/school/:id/update/:permalink-:update_id': 'update'
+		'school/:id': 'page',
+		'school/:id/update/:permalink-:update_id': 'update'
 	},
 
 	initialize: function(schools) {
@@ -41,7 +41,7 @@ SC.Routers.Social = Backbone.Router.extend({
 		var self = this;
 		this.update.bind('modal:closed', function() {
 			console.log('closed');
-			self.navigate('/school/'+id, true);
+			self.navigate('school/'+id, true);
 		}, this);
 	},
 

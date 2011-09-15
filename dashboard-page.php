@@ -19,7 +19,7 @@ get_header(); ?>
 <!-- Templates -->
 
 <script type="text/template" id="template-school">
-	<a href="/teamup/#/school/<%= id %>">
+	<a href="/teamup#school/<%= id %>">
 		<img src="<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w200-h150-c200:150/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>" alt="<%= name %>" />
 		<strong class="name"><%= name %></strong>
 		<% if (city) { %>
@@ -70,7 +70,6 @@ get_header(); ?>
 	<div class="editor_pane">
 		<div class="toolbar">
 			<a href="#" class="left cancel">Cancel</a>
-			<a href="#" class="right create">Create Project</a>
 		</div>
 		<div class="editor">
 		</div>
@@ -204,24 +203,35 @@ get_header(); ?>
 </script>
 
 <script type="text/template" id="template-project-editor">
-<div class="editor_pane project">
-	<div class="toolbar">
-		<a href="#" class="left cancel">Cancel</a>
-		<a href="#" class="right create">Create Project</a>
+	<div class="modal-overlay">
+		<div class="modal-toolbar">
+			<a href="#" class="left cancel">&larr; Cancel</a>
+		</div>
+		<div class="modal-page">
+			<form action="#" method="post">
+				<p>
+					<label>Project Name</label>
+					<input type="text" name="name" id="project_editor_name" />
+				</p>
+				<p class="inline">
+					<label>Amount Raised</label>
+					<span class="symbol">$</span> 
+					<span>
+						<input type="text" name="amount_dollar" class="numeric" id="project_editor_amount_dollar" />
+						<label for="amount_dollar">Dollars</label>
+					</span>
+					<span class="symbol">.</span>
+					<span>
+						<input type="text" name="amount_cent" class="numeric" id="project_editor_amount_cent" />
+						<label for="amount_cent">Cents</label>
+					</span>
+				</p>
+				<p>
+					<input type="submit" value="Create Project" />
+				</p>
+			</form>
+		</div>
 	</div>
-	<div class="editor">
-		<form action="#">
-			<p>
-				<label>Project Name</label>
-				<input type="text" placeholder="Project Name" name="name" id="project_editor_name" />
-			</p>
-			<p class="inline">
-				<label>Amount Raised</label>
-				<strong>$</strong> <input type="text" name="amount_dollar" placeholder="0" class="numeric" id="project_editor_amount_dollar" /> <strong>.</strong> <input type="text" name="amount_cent" placeholder="00" class="numeric" id="project_editor_amount_cent" />
-			</p>
-		</form>
-	</div>
-</div>
 </script>
 
 <script type="text/template" id="template-chart">
@@ -260,7 +270,7 @@ get_header(); ?>
 </script>
 
 <script type="text/template" id="template-update">
-	<h2><a href="/teamup/#/school/<%= school_id %>/update/<%= permalink %>-<%= id %>" title="Click to read <%= title %>"><%= title %></a></h2>
+	<h2><a href="/teamup#school/<%= school_id %>/update/<%= permalink %>-<%= id %>" title="Click to read <%= title %>"><%= title %></a></h2>
 	<span class="date"><%= formatted_created_at %></span>
 	<p><%= excerpt %></p>
 </script>
@@ -270,22 +280,22 @@ get_header(); ?>
 </script>
 
 <script type="text/template" id="template-update-editor">
-<div class="editor_pane update">
-	<div class="toolbar">
-		<a href="#" class="left cancel">Cancel</a>
-		<a href="#" class="right publish">Publish</a>
+	<div class="modal-overlay">
+		<div class="modal-toolbar">
+			<a href="#" class="left cancel">Cancel</a>
+			<a href="#" class="right publish">Publish</a>
+		</div>
+		<div class="modal-page">
+			<form action="#">
+				<p>
+					<input type="text" placeholder="Title" name="title" id="update_editor_title" />
+				</p>
+				<p>
+					<textarea name="content" id="update_editor_content"></textarea>
+				</p>
+			</form>
+		</div>
 	</div>
-	<div class="editor">
-		<form action="#">
-			<p>
-				<input type="text" placeholder="Title" name="title" id="update_editor_title" />
-			</p>
-			<p>
-				<textarea name="content" id="update_editor_content"></textarea>
-			</p>
-		</form>
-	</div>
-</div>
 </script>
 
 <script type="text/template" id="template-update-modal">
