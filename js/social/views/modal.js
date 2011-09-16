@@ -10,7 +10,7 @@ SC.Views.Modal = Backbone.View.extend({
     'click .close': 'close'
   },
 
-  render: function() {
+  render: function(template) {
     var template = template || this.template(this.model.toJSON());
     $(this.el).html(template);
     if (this.didRenderTemplate) this.didRenderTemplate();
@@ -18,6 +18,7 @@ SC.Views.Modal = Backbone.View.extend({
     this._toggleModal(false);
 
     $('body').append(this.el);
+    this.trigger('modal:opened');
   },
 
   unrender: function() {
@@ -26,7 +27,9 @@ SC.Views.Modal = Backbone.View.extend({
     this.trigger('modal:closed');
   },
 
-  close: function() {
+  close: function(evt) {
+    console.log(evt);
+    if (evt.preventDefault) evt.preventDefault();
     this.trigger('modal:closing');
     return false;
   },

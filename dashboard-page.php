@@ -117,7 +117,9 @@ get_header(); ?>
 				<form action="<?php bloginfo('stylesheet_directory') ?>/photo_upload.php" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
 					<h3>Upload a new profile photo from your computer:</h3>
 					<input name="userfile" id="userfile" type="file" />
-					<input type="submit" value="Upload Photo" />
+					<p class="submit">
+						<input type="submit" value="Upload Photo" />
+					</p>
 					<em>By uploading an image you certify that you have the right to distribute it and that it does not contain any violent or pornographic material.</em>
 				</form>
 			</div>
@@ -208,6 +210,7 @@ get_header(); ?>
 			<a href="#" class="left cancel">&larr; Cancel</a>
 		</div>
 		<div class="modal-page editor">
+			<h2>Create Project</h2>
 			<form action="#" method="post">
 				<p>
 					<label>Project Name</label>
@@ -227,7 +230,7 @@ get_header(); ?>
 					</span>
 				</p>
 				<p class="submit">
-					<input type="submit" value="Create Project" />
+					<input type="submit" value="Publish Project" />
 				</p>
 			</form>
 		</div>
@@ -257,7 +260,7 @@ get_header(); ?>
 	<header>
 		<h3>Recent Updates</h3>
 		<% if (is_admin) { %>
-			<a href="#" class="create_update">Create New Update</a>
+			<a href="#" class="create-update">Create New Update</a>
 		<% } %>
 	</header>
 
@@ -282,16 +285,21 @@ get_header(); ?>
 <script type="text/template" id="template-update-editor">
 	<div class="modal-overlay">
 		<div class="modal-toolbar">
-			<a href="#" class="left cancel">Cancel</a>
-			<a href="#" class="right publish">Publish</a>
+			<a href="#" class="left cancel">&larr; Cancel</a>
 		</div>
-		<div class="modal-page">
-			<form action="#">
+		<div class="modal-page editor">
+			<h2>Create Project</h2>
+			<form action="#" method="post">
 				<p>
-					<input type="text" placeholder="Title" name="title" id="update_editor_title" />
+					<label for="title">Title</label>
+					<input type="text" name="title" id="update_editor_title" />
 				</p>
 				<p>
+					<label for="content">Content</label>
 					<textarea name="content" id="update_editor_content"></textarea>
+				</p>
+				<p class="submit">
+					<input type="submit" value="Publish Update" />
 				</p>
 			</form>
 		</div>

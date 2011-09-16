@@ -5,7 +5,6 @@
  */
 
 require_once('social-page.php');
-require_once('lib/htmlpurifier-4.3.0/library/HTMLPurifier.auto.php');
 
 class ProjectController extends RestController
 {
@@ -77,6 +76,8 @@ class ProjectController extends RestController
 
 		if ($this->db->insert( $this->db->prefix.$this->table, $data )) 
 		{
+			$data['id'] = $this->db->insert_id;
+
 			foreach ($data as $key => $value) {
 				switch ($key) {
 					case 'created_at':
@@ -105,7 +106,7 @@ class ProjectController extends RestController
 		}
 		else
 		{
-			RestUtils::sendResponse(500);
+			RestUtils::sendResponse(404);
 		}
 	}
 }

@@ -1194,8 +1194,17 @@ body.modal-view {
     margin: 0 auto;
 
     &.editor {
-        padding: 20px 0;
+        padding: 0 0 20px 0;
         max-width: 720px;
+
+        h2 {
+            padding: 30px 20px;
+            color: $orange;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 24px;
+            background: #F9F9F9;
+        }
     }
 
     .entry-title {
@@ -1228,14 +1237,14 @@ body.modal-view {
         }
 
         input {
-            font-family: 'Helvetica Neue', 'Helvetica', Arial, san-serif;
+            font-family: "Helvetica Neue", 'Helvetica', Arial, san-serif;
             font-size: 16px;
             width: 660px;
             padding: 10px;
         }
 
         textarea {
-            width: 728px;
+            width: 660px;
         }
 
         p {
@@ -1877,7 +1886,7 @@ body.modal-view {
                         text-transform: uppercase;
                     }
 
-                    .create_update {
+                    .create-update {
                         @include social_button;
                         float: right;
                         margin: 20px 20px 0 0;

@@ -6,11 +6,10 @@
 
 require_once('social-page.php');
 
-/**
-* 
-*/
 class UpdateController extends RestController
 {
+	protected $table = 'school_updates';
+
 	/** 
 	   A compromise had to be made here. On account of the limitations
 	   of Wordpress, nesting of REST paths are a pain in the ass.
@@ -23,8 +22,8 @@ class UpdateController extends RestController
 		$vars = $this->request->getRequestVars();
 		$offset = ((int) $vars['offset'] > 0) ? $vars['offset'] : 1;
 		$page_offset = ($offset - 1) * 3;
-		$table = "{$this->db->prefix}school_updates";
-		$updates = $this->db->get_results( $this->db->prepare( "SELECT * FROM $table WHERE school_id = $school_id LIMIT $page_offset, 3" ) );
+		$table = $this->db->prefix.$this->table;
+		$updates = $this->db->get_results( $this->db->prepare( "SELECT * FROM $table WHERE school_id = $school_id ORDER BY created_at DESC LIMIT $page_offset, 3" ) );
 		
 		$data = array( 'models' => array(), 'total' => 0, 'offset' => 1, );
 
@@ -43,8 +42,8 @@ class UpdateController extends RestController
 					'content'    => $update->content,
 					'permalink'  => $update->permalink,
 					'school_id'  => (int) $update->school_id,
-					'created_at' => strtotime($update->created_at),
-					'updated_at' => strtotime($update->updated_at),
+					'created_at' => strtotime($update->created_at)*1000,
+					'updated_at' => strtotime($update->updated_at)*1000,
 				);
 			}
 		}

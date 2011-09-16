@@ -13,10 +13,13 @@ require_once('social-page.php');
  */
 class ProfileController extends RestController
 {
+	protected $table = "school_info";
+
 	protected function get()
 	{
 		$school_id = $this->request->getGuid();
-		$school_info = $this->db->get_row( $this->db->prepare( "SELECT * FROM {$this->db->prefix}school_info WHERE school_id = $school_id" ) );
+		$table = $this->db->prefix.$this->table;
+		$school_info = $this->db->get_row( $this->db->prepare( "SELECT * FROM $table WHERE school_id = $school_id" ) );
 
 		if ($school_info) 
     {
@@ -39,7 +42,7 @@ class ProfileController extends RestController
 			);
 
 			// School Updates (first 3)
-			$updates = $this->db->get_results( $this->db->prepare( "SELECT * FROM {$this->db->prefix}school_updates WHERE school_id = $school_id ORDER BY created_at DESC LIMIT 3" ) );
+			$updates = $this->db->get_results( $this->db->prepare( "SELECT * FROM $table WHERE school_id = $school_id ORDER BY created_at DESC LIMIT 3" ) );
 
 			if ($updates) 
       {
@@ -59,7 +62,7 @@ class ProfileController extends RestController
 			}
 
 			// School Projects (all of them)
-			$projects = $this->db->get_results("SELECT * FROM {$this->db->prefix}school_projects WHERE school_id = $school_id ORDER BY created_at DESC");
+			$projects = $this->db->get_results("SELECT * FROM $table WHERE school_id = $school_id ORDER BY created_at DESC");
 
 			if ($projects) 
       {

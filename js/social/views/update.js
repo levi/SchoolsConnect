@@ -8,10 +8,6 @@ SC.Views.Update = Backbone.View.extend({
 
   template: _.template($('#template-update').html()),
 
-  events: {
-    'click h2 a': 'show'
-  },
-
   initialize: function() {
     _.bindAll(this, 'render');
   },
@@ -20,8 +16,4 @@ SC.Views.Update = Backbone.View.extend({
     $(this.el).html(this.template(this.model.toJSON()));
     return this;
   },
-
-  show: function() {
-    console.log('show!');
-  }
 });

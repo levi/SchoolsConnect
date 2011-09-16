@@ -12,14 +12,14 @@ SC.Views.UpdateList = Backbone.View.extend({
   blankTemplate: _.template($('#template-blank-update').html()),
 
   events: {
-    'click .create_update': 'create',
+    'click .create-update': 'create',
     'click .more a': 'loadMore'
   },
 
   initialize: function() {
     _.bindAll(this, 'render', 'addUpdate', 'create', 'loadMore', 'toggleLoading', 'removeMore', 'onLoadingComplete');
 
-    this.collection.bind('add', this.addupdate, this);
+    this.collection.bind('add', this.addUpdate, this);
     this.collection.bind('reset', this.render, this);
     this.collection.bind('fetching', this.toggleLoading, this);
     this.collection.bind('fetched', this.moreLoaded, this);
@@ -36,7 +36,7 @@ SC.Views.UpdateList = Backbone.View.extend({
     $(this.el).html($template);
 
     this.collection.each(function(model) {
-      this.addUpdate(model, { animated: false });
+      this.addUpdate(model);
     }, this);
 
     return this;
@@ -48,25 +48,20 @@ SC.Views.UpdateList = Backbone.View.extend({
         $el   = $(view.render().el),
         $list = this.$('.update-list');
     
-    if (options.prepend) { 
-      $el.hide().prependTo($list).slideDown('fast'); 
+    if (this.collection.length > 0) { 
+      $el.prependTo($list); 
     } else { 
-      $el.hide().appendTo($list);
-      if (options.animated) {
-        $el.slideDown('fast');
-      } else {
-        $el.show(); 
-      }
+      $el.appendTo($list);
     }
 
     if (this.collection.pageInfo().more) {
-      this.$('.more').slideDown('fast');
+      this.$('.more');
     }
   },
 
   create: function(evt) {
     evt.preventDefault();
-    // this.updateEditor = new SC.Views.UpdateEditorModal({ collection: this.collection });
+    this.editor = new SC.Views.UpdateEditorModal({ collection: this.collection });
     return false;
   },
 

@@ -17,7 +17,7 @@ SC.Collections.Projects = SC.Collections.Application.extend({
   },
 
   parse: function(resp) {
-    resp = _.map(resp, function(model) {
+    var resp = _.map(resp, function(model) {
       return SC.Models.Project.prototype.parse.call(this, model);
     }, this);
     return resp;
