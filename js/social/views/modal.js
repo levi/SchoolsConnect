@@ -28,7 +28,6 @@ SC.Views.Modal = Backbone.View.extend({
   },
 
   close: function(evt) {
-    console.log(evt);
     if (evt.preventDefault) evt.preventDefault();
     this.trigger('modal:closing');
     return false;
