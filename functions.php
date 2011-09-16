@@ -316,16 +316,16 @@ function save_school_info( $user_id ) {
 	$school_info = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}school_info WHERE school_id = $user_id");
 
 	$data = array(
-		'name'      => $_POST['name'],
-		'address'   => $_POST['address'],
-		'address_2' => $_POST['address_2'],
-		'city'      => $_POST['city'],
-		'state'     => $_POST['state'] == 'Select One' ? '' : $_POST['state'],
+		'name'      => stripslashes($_POST['name']),
+		'address'   => stripslashes($_POST['address']),
+		'address_2' => stripslashes($_POST['address_2']),
+		'city'      => stripslashes($_POST['city']),
+		'state'     => stripslashes($_POST['state'] == 'Select One' ? '' : $_POST['state']),
 		'zipcode'   => $_POST['zipcode'],
-		'advisor'   => $_POST['advisor'],
+		'advisor'   => stripslashes($_POST['advisor']),
 		'goal'		=> $_POST['goal'],
-		'leaders'   => implode(', ', array_filter($_POST['leaders'], 'strlen')),
-		'members'   => implode(', ', array_filter($_POST['members'], 'strlen')),
+		'leaders'   => stripslashes(implode(', ', array_filter($_POST['leaders'], 'strlen'))),
+		'members'   => stripslashes(implode(', ', array_filter($_POST['members'], 'strlen'))),
 	);
 
 	if ( empty($_POST['image']) )
