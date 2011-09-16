@@ -79,7 +79,10 @@ class RestUtils
 				break;
 			}
 
-			echo json_encode( array( 'error' => array( 'status' => $status, 'message' => $message ) ) );
+			if ( ! empty($message) ) 
+			{
+				echo json_encode( array( 'error' => array( 'status' => $status, 'message' => $message ) ) );
+			}
 			exit;
 		}
 	}
