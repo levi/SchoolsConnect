@@ -9,13 +9,36 @@
 get_header(); ?>
 
 <div id="content" role="main">
-	<div id="social_page">
-		<div class="loading">
-			<img src="<?php bloginfo('stylesheet_directory') ?>/images/social/profile_loader.gif" alt="Loading..." />
+	<?php if (!is_user_logged_in()): ?>
+		<?php if ( has_post_thumbnail() ): ?>
+			<div id="login_image" style="background: url(
+			<?php echo (preg_match('~\bsrc="([^"]++)"~', get_the_post_thumbnail(get_the_ID(), 'page-spread'), $matches)) ? $matches[1] : ''; ?>) no-repeat 0 0;">
+				<div id="login_info" class="team_up">
+					<div class="title">
+						<h2>Team Up!</h2>
+					</div>
+					<div class="content">
+						<p>New to leading a club? No problem, you will have access to the curriculum and activity calendars of your fellow leaders as you develop an initiative that best fits your club. In addition, you will have the opportunity to stay connected with your fellow club leaders and members through the quarterly video chat forums. You can discuss fundraising strategies and update your group page to document your activities with videos and photos.  </p>
+						<nav>
+							<ul>
+								<li><a href="/register">Register Your School</a></li>
+								<li><a href="/login?next=teamup">Login to Continue &raquo;</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		<?php endif ?>
+	<?php else: ?>
+		<div id="social_page">
+			<div class="loading">
+				<img src="<?php bloginfo('stylesheet_directory') ?>/images/social/profile_loader.gif" alt="Loading..." />
+			</div>
 		</div>
-	</div>
+	<?php endif; ?>
 </div>
 
+<?php if (is_user_logged_in()): ?>
 <!-- Templates -->
 
 <script type="text/template" id="template-school">
@@ -358,5 +381,6 @@ if ($schools) {
 
 $GLOBALS['footer_inline'] = '<script>$(function() { SC.init('.json_encode($data).'); })</script>';
 ?>
+<?php endif; ?>
 
 <?php get_footer(); ?>
