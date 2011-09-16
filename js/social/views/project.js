@@ -1,10 +1,11 @@
 SC.Views.Project = Backbone.View.extend({
   className: 'project',
+  tagName: 'li',
 
   template: _.template($('#template-project').html()),
 
   events: {
-  	'click .destroy': 'destroy'
+    'click .destroy': 'destroy'
   },
 
   initialize: function() {
@@ -12,26 +13,27 @@ SC.Views.Project = Backbone.View.extend({
   },
 
   render: function() {
-  	var self = this;
+    var self = this;
     $(this.el).html(this.template(this.model.toJSON()));
 
     $(this.el).hover(function() {
-    	self.$('.destroy').show();
+      self.$('.destroy').show();
     }, function() {
-    	self.$('.destroy').hide();    	
+      self.$('.destroy').hide();
     });
 
     return this;
   },
 
   destroy: function() {
-  	var self = this;
-  	
-  	self.model.destroy({ success: function() {
-	  	$(self.el).remove();
-  	} });
+    var self = this;
+    
+    self.model.destroy({
+      success: function() {
+        $(self.el).remove();
+      } 
+    });
 
-  	return false;
+    return false;
   }
-
 });

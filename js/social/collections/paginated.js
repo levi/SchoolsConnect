@@ -1,7 +1,7 @@
 SC.Collections.Paginated = SC.Collections.Application.extend({
   initialize: function() {
     _.bindAll(this, 'parse', 'url', 'pageInfo', 'loadMore');
-    this.offset = 1;
+    this._perPage = this._perPage || 12;
   },
 
   parse: function(resp) {
@@ -18,19 +18,30 @@ SC.Collections.Paginated = SC.Collections.Application.extend({
     var info = {
       total: this.total,
       offset: this.offset,
-      pages: Math.ceil(this.total / 9),
+      pages: Math.ceil(this.total / this._perPage),
       more: false
     };
 
     if (this.offset < info.pages) info.more = this.offset + 1;
-    
+
     return info;
   },
 
   loadMore: function() {
     if (!this.pageInfo().more) return false;
-    console.log(this.offset);
     this.offset += 1;
     return this.fetch({ add: true });
+  },
+
+  fetch: function(options) {
+    this.trigger('fetching');
+    options || (options = {});
+    var collection = this;
+    var success = options.success;
+    options.success = function(resp, status, xhr) {
+      collection.trigger('fetched');
+      if (success) success(collection, resp);
+    };
+    Backbone.Collection.prototype.fetch.call(this, options);
   }
 });

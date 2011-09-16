@@ -22,7 +22,7 @@ SC.Views.UpdateList = Backbone.View.extend({
     this.collection.bind('add', this.addUpdate, this);
     this.collection.bind('reset', this.render, this);
     this.collection.bind('fetching', this.toggleLoading, this);
-    this.collection.bind('fetched', this.moreLoaded, this);
+    this.collection.bind('fetched', this.onLoadingComplete, this);
     this.collection.bind('all', this.toggleBlankState, this);
   },
 
@@ -48,14 +48,14 @@ SC.Views.UpdateList = Backbone.View.extend({
         $el   = $(view.render().el),
         $list = this.$('.update-list');
     
-    if (this.collection.length > 0) { 
-      $el.prependTo($list); 
-    } else { 
+    if (model.get('wasFetched')) { 
       $el.appendTo($list);
+    } else { 
+      $el.prependTo($list); 
     }
 
     if (this.collection.pageInfo().more) {
-      this.$('.more');
+      this.$('.more').show();
     }
   },
 
@@ -66,30 +66,30 @@ SC.Views.UpdateList = Backbone.View.extend({
   },
 
   loadMore: function(evt) {
+    evt.preventDefault();
     this.collection.loadMore();
     return false;
   },
 
-  toggleLoading: function() {
+  toggleLoading: function(show) {
     var $more    = this.$('.more'),
         $link    = $('a', $more),
         $loading = $('.loading', $more);
+
+    if (show === undefined) show = true;
     
-    $link.toggle();
-    $loading.toggle();
+    $link.toggle(!show);
+    $loading.toggle(show);
 
     return this;
   },
 
   removeMore: function() {
-    this.$('.more').slideUp('fast', function() {
-      $(this).remove();
-    });
-    return this;
+    this.$('.more').remove();
   },
 
   onLoadingComplete: function() {
-    this.toggleLoading();
+    this.toggleLoading(false);
     if (!this.collection.pageInfo().more) this.removeMore();
   },
 

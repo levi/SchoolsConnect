@@ -1,5 +1,5 @@
 SC.Views.Chart = Backbone.View.extend({
-	id: 'chart_progress',
+	className: 'chart',
 
 	template: _.template($('#template-chart').html()),
 

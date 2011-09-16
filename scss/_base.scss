@@ -2,6 +2,7 @@
 
 // Colors
 $orange: #ee841d;
+$border-grey: #f9f9f9;
 
 @mixin page_background {
   background: url('images/gap-bg.jpg') no-repeat 0 0;
@@ -24,19 +25,10 @@ $orange: #ee841d;
 
 @mixin content-box {
   background: white;
-	@include box-shadow(rgba(black, 0.15), 0, 2px, 5px);
-}
-
-@mixin unselectable { 
-  -moz-user-select: -moz-none; 
-  -khtml-user-select: none; 
-  -webkit-user-select: none; 
-  -o-user-select: none; 
-  user-select: none; 
+	@include box-shadow(rgba(black, 0.23), 0, 2px, 5px);
 }
 
 @mixin social_button {
-  @include unselectable;
   background-color: #f6f6f6;
   @include linear-gradient(color-stops(white, #f6f6f6));
   @include single-text-shadow(white, 0, 1px, 0);
@@ -60,7 +52,6 @@ $orange: #ee841d;
 }
 
 @mixin social_school($changeable: false, $size: large) {
-  @include unselectable;
   @include content-box;
   cursor: default;
   width: 264px;
@@ -93,8 +84,8 @@ $orange: #ee841d;
       width: 264px;
       height: 198px;
     } @else if $size == small {
-      width: 200px;
-      height: 150px;
+      width: 210px;
+      height: 157px;
     }
 
     @if $changeable == true {
@@ -118,8 +109,8 @@ $orange: #ee841d;
           width: 264px;
           height: 198px;
         } @else if $size == small {
-          width: 200px;
-          height: 150px;
+          width: 210px;
+          height: 157px;
         }
       }
     }
@@ -144,8 +135,8 @@ $orange: #ee841d;
         width: 264px;
         height: 198px;
       } @else if $size == small {
-        width: 200px;
-        height: 150px;
+        width: 210px;
+        height: 157px;
       }
     }
 

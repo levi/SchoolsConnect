@@ -20,14 +20,24 @@ SC.Views.PhotoModal = SC.Views.Modal.extend({
 	},
 
 	toggleLoading: function() {
+		var $submit = this.$('input[type=submit]');
+
 		this.$('.left').toggleClass('loading');
+
+		if (!$submit.data('disabled')) {
+			$submit.attr('disabled', true);
+			$submit.data('disabled', true);
+		} else {
+			$submit.removeAttr('disabled');
+			$submit.removeData('disabled', true);
+		}
 	},
 
 	parse: function(resp) {
 		if (resp.image) {
 			this.model.set({ 'image': resp.image });
 		} else {
-			alert("Oops, there was an error!\n "+resp.error);
+			alert("Oops, there was an error!\n"+resp.error);
 		}
 		_.defer(this.toggleLoading);
 	},

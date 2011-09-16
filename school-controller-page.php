@@ -13,9 +13,9 @@ class SchoolController extends RestController
 	protected function getList()
 	{
 		$vars = $this->request->getRequestVars();
-		$offset = ((int) $vars['offset'] > 0) ? $vars['offset'] : 1;
-		$page_offset = $offset * 9;
-		$schools = $this->db->get_results("SELECT * FROM {$this->db->prefix}{$this->table} LIMIT $page_offset, 9");
+		$offset = ((int) $vars['offset'] > 1) ? ((int) $vars['offset'])-1 : 1;
+		$page_offset = $offset * 12;
+		$schools = $this->db->get_results( $this->db->prepare("SELECT * FROM {$this->db->prefix}{$this->table} ORDER BY id ASC LIMIT $page_offset, 12") );
 		
 		if ($schools) 
 		{
@@ -23,7 +23,7 @@ class SchoolController extends RestController
 
 			$school_count = $this->db->get_var( $this->db->prepare( "SELECT COUNT(*) FROM {$this->db->prefix}{$this->table};" ) );
 			$data['total'] = (int) $school_count;
-			$data['offset'] = (int) $offset;
+			$data['offset'] = (int) $offset+1;
 
 			foreach ($schools as $school) {
 				$data['models'][] = array(

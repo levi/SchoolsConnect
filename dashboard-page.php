@@ -20,7 +20,7 @@ get_header(); ?>
 
 <script type="text/template" id="template-school">
 	<a href="/teamup#school/<%= id %>">
-		<img src="<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w200-h150-c200:150/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>" alt="<%= name %>" />
+		<img src="<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w210-h157-c210:157/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>" alt="<%= name %>" />
 		<strong class="name"><%= name %></strong>
 		<% if (city) { %>
 			<span class="location"><%= city %>, <%= state %></span>
@@ -81,12 +81,6 @@ get_header(); ?>
 	</div>
 </script>
 
-<script type="text/template" id="template-fundraising">
-	<div class="chart">
-		<h3>Money Raised</h3>
-	</div>
-</script>
-
 <script type="text/template" id="template-image-url">
 <?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w264-h198-c264:198/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>
 </script>
@@ -108,6 +102,7 @@ get_header(); ?>
 			<a href="#" class="left close">&larr; Back to your school's profile</a>
 		</div>
 		<div class="modal-page">
+			<h2>Upload a new profile photo from your computer</h2>
 			<div class="left">
 				<img src="<?php bloginfo('stylesheet_directory') ?><% if (image) { %>/lib/slir/w264-h198-c264:198/wp-content/uploads/profile_photos/<%= image %><% } else { %>/images/social/thumb_placeholder.png<% } %>" alt="<%= name %>" />
 				<div class="loader"></div>
@@ -115,8 +110,9 @@ get_header(); ?>
 
 			<div class="right">
 				<form action="<?php bloginfo('stylesheet_directory') ?>/photo_upload.php" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
-					<h3>Upload a new profile photo from your computer:</h3>
-					<input name="userfile" id="userfile" type="file" />
+					<p>
+						<input name="userfile" id="userfile" type="file" />	
+					</p>
 					<p class="submit">
 						<input type="submit" value="Upload Photo" />
 					</p>
@@ -128,21 +124,19 @@ get_header(); ?>
 </script>
 
 <script type="text/template" id="template-profile-info">
-	<div id="meta_info">
+	<div id="meta-info">
 		<h3>More info</h3>
 
-		<% if (!isEmpty) { %>
+		<% if (address) { %>
 			<table>
-				<% if (address) { %>
-					<tr>
-						<th>Address</th>
-						<td>
-							<%= address %><br />
-							<% if (address_2) { %><%= address_2 %><br /><% } %>
-							<%= city %>, <%= state %> <%= zipcode %>
-						</td>
-					</tr>
-				<% } %>
+				<tr>
+					<th>Address</th>
+					<td>
+						<%= address %><br />
+						<% if (address_2) { %><%= address_2 %><br /><% } %>
+						<%= city %>, <%= state %> <%= zipcode %>
+					</td>
+				</tr>
 
 				<% if (advisor) { %>
 					<tr>
@@ -174,7 +168,7 @@ get_header(); ?>
 				<% } %>
 			</table>
 		<% } else { %>
-			<div class="blank">
+			<div class="none">
 				<span>This school has not added any information</span>
 			</div>
 		<% } %>
@@ -193,11 +187,9 @@ get_header(); ?>
 </script>
 
 <script type="text/template" id="template-project">
-	<li>
-		<span class="project"><%= name %></span>
-		<span class="amount-raised">$<%= amount %></span>
-		<a href="#" class="destroy">x</a>
-	</li>
+	<span class="project"><%= name %></span>
+	<span class="amount-raised">$<%= amount %></span>
+	<a href="#" class="destroy">x</a>
 </script>
 
 <script type="text/template" id="template-blank-project">
@@ -238,22 +230,26 @@ get_header(); ?>
 </script>
 
 <script type="text/template" id="template-chart">
-<div class="meter">
-	<% if (notStarted) { %>
-		<span class="not_started">No money has been raised, yet!</span>
-	<% } %>
-	<span class="progress">
-	  <% if (completed) { %>
-	    <span>$<%= total %> Raised!</span>
-	  <% } %>
-	</span>
-	<span class="amount">$<%= total %></span>
-</div>
-<div class="meter_labels">
-	<span class="lines"></span>
-	<span class="beginning">$0</span>
-	<span class="ending">$<%= goal %></span>
-</div>
+	<h3>Money Raised</h3>
+
+	<div id="chart_progress">	
+		<div class="meter">
+			<% if (notStarted) { %>
+				<span class="not_started">No money has been raised, yet!</span>
+			<% } %>
+			<span class="progress">
+			  <% if (completed) { %>
+			    <span>$<%= total %> Raised!</span>
+			  <% } %>
+			</span>
+			<span class="amount">$<%= total %></span>
+		</div>
+		<div class="meter_labels">
+			<span class="lines"></span>
+			<span class="beginning">$0</span>
+			<span class="ending">$<%= goal %></span>
+		</div>
+	</div>
 </script>
 
 <script type="text/template" id="template-updates-list">
@@ -273,8 +269,8 @@ get_header(); ?>
 </script>
 
 <script type="text/template" id="template-update">
-	<h2><a href="/teamup#school/<%= school_id %>/update/<%= permalink %>-<%= id %>" title="Click to read <%= title %>"><%= title %></a></h2>
 	<span class="date"><%= formatted_created_at %></span>
+	<h2><a href="/teamup#school/<%= school_id %>/update/<%= permalink %>-<%= id %>" title="Click to read <%= title %>"><%= title %></a></h2>
 	<p><%= excerpt %></p>
 </script>
 
@@ -314,8 +310,10 @@ get_header(); ?>
 				<a href="#" class="right destroy">Delete</a>
 			</div>
 			<div class="modal-page">
-				<span class="entry-date"><%= formatted_created_at %></span>
-				<h2 class="entry-title"><%= title %></h2>
+				<header>
+					<span class="entry-date"><%= formatted_created_at %></span>
+					<h2 class="entry-title"><%= title %></h2>
+				</header>
 				<div class="entry-content">
 					<%= content %>
 				</div>

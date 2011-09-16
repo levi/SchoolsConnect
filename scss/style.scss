@@ -803,7 +803,7 @@ ul.btn_nav {
     margin: 0 0 20px 0;
 }
 #content table {
-    border: 1px solid #e7e7e7;
+    border: 1px solid $border-grey;
     margin: 0 -1px 24px 0;
     text-align: left;
     width: 100%;
@@ -817,7 +817,7 @@ ul.btn_nav {
     padding: 9px 24px;
 }
 #content tr td {
-    border-top: 1px solid #e7e7e7;
+    border-top: 1px solid $border-grey;
     padding: 6px 24px;
 }
 #content tr.odd td {
@@ -898,7 +898,7 @@ ul.btn_nav {
     margin-bottom: 12px;
 }
 .entry-content fieldset {
-    border: 1px solid #e7e7e7;
+    border: 1px solid $border-grey;
     margin: 0 0 24px 0;
     padding: 24px;
 }
@@ -978,7 +978,7 @@ body.page .edit-link {
 }
 #entry-author-info #author-avatar {
     background: #fff;
-    border: 1px solid #e7e7e7;
+    border: 1px solid $border-grey;
     float: left;
     height: 60px;
     margin: 0 -104px 0 0;
@@ -1168,7 +1168,6 @@ body.modal-view {
     height: 58px;
 
     a {
-        @include unselectable;
         display: block;
         height: 58px;
         line-height: 58px;
@@ -1189,22 +1188,25 @@ body.modal-view {
 
 .modal-page {
     @include content-box;
-    max-width: 680px;
-    padding: 20px;
+    max-width: 720px;
     margin: 0 auto;
 
     &.editor {
         padding: 0 0 20px 0;
-        max-width: 720px;
+    }
 
-        h2 {
-            padding: 30px 20px;
-            color: $orange;
-            margin-bottom: 20px;
-            font-weight: bold;
-            font-size: 24px;
-            background: #F9F9F9;
-        }
+    h2 {
+        padding: 30px 20px;
+        color: $orange;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 24px;
+        background: #F9F9F9;
+    }
+
+    header {
+        background: #F9F9F9;
+        padding: 30px 20px;
     }
 
     .entry-title {
@@ -1212,7 +1214,8 @@ body.modal-view {
         font-weight: bold;
         font-size: 32px;
         line-height: 34px;
-        margin: 15px 0 10px 0;
+        padding: 0;
+        margin: 15px 0 0 0;
     }
 
     .entry-date {
@@ -1224,6 +1227,8 @@ body.modal-view {
         font-size: 16px;
         line-height: 26px;
         position: relative;
+        padding: 20px 20px 0;
+        overflow: hidden;
     }
 
     form {
@@ -1253,7 +1258,7 @@ body.modal-view {
             margin: 0;
             padding: 0 20px 20px;
             margin-bottom: 20px;
-            border-bottom: 1px solid #E9E9E9;
+            border-bottom: 5px solid $border-grey;
 
             span {
                 float: left;
@@ -1318,8 +1323,11 @@ body.modal-view {
 #photo_modal {
     .modal-page {
         @include clearfix;
+        max-width: 720px;
+        padding: 0 0 20px 0;
 
         .left {
+            padding-left: 20px;
             width: 264px;
             float: left;
             position: relative;
@@ -1333,7 +1341,7 @@ body.modal-view {
                     display: block;
                     position: absolute;
                     top: 0;
-                    left: 0;
+                    left: 20px;
                     z-index: 5000;
                     background: rgba(255, 255, 255, 0.9) url('images/social/loader.gif') no-repeat center center;                      
                     width: 264px;
@@ -1344,24 +1352,30 @@ body.modal-view {
 
         .right {
             margin-left: 20px;
+            padding-right: 20px;
             width: 396px;
             float: right;
         }
 
-        h3 {
-            font-weight: bold;
-            margin-bottom: 20px;
+        form {
+            input {
+                width: 100%;
+            }
+
+            p {
+                padding: 0 0 20px 0;       
+                width: 100%;   
+                
+                &.submit {
+                    input {
+                        width: auto;
+                    }
+                }          
+            }
         }
 
         em {
             display: block;
-            border-top: 1px solid #E9E9E9;
-            margin-top: 20px;
-        }
-
-        input {
-            display: block;
-            margin-bottom: 20px;
         }
     }
 }
@@ -1377,7 +1391,6 @@ body.modal-view {
 
     .toolbar {
         @include clearfix;
-        @include unselectable;
         height: 44px;
         width: 738px;
         padding: 0 15px;
@@ -1442,7 +1455,6 @@ body.modal-view {
     }
 
     .editor {
-        @include unselectable;
         height: 100%;
         overflow-x: scroll;
         overflow-y: hidden;
@@ -1479,8 +1491,8 @@ body.modal-view {
             #school_list {
                 .school {
                     float: left;
-                    margin: 0 20px 20px 0;
-                    width: 200px;
+                    margin: 0 5px 5px 0;
+                    width: 210px;
 
                     a {
                         display: block;
@@ -1498,8 +1510,8 @@ body.modal-view {
                     }
 
                     img {
-                        width: 200px;
-                        height: 150px;
+                        width: 210px;
+                        height: 157px;
                         display: block;
                     }
 
@@ -1522,16 +1534,33 @@ body.modal-view {
             }
 
             .more {
+                @include content-box;
+                margin-right: 20px;
+                text-align: center;
+                display: none;
+
                 a {
-                    display: block;
-                    text-align: center;
-                    width: 100%;
-                    height: 44px;
+                    text-transform: uppercase;
+                    padding: 20px 0;
                     color: $orange;
                     font-weight: bold;
+                    text-decoration: none;
+                    display: block;
+                    font-size: 16px;
+
+                    &:hover {
+                        color: white;
+                        background: $orange;
+                    }
                 }
 
                 .loading {
+                    background: url('images/social/loader.gif') no-repeat center center;
+                    width: 16px;
+                    height: 16px;
+                    text-indent: -3000px;
+                    padding: 20px 0;
+                    margin: 0 auto;
                     display: none;
                 }
             }
@@ -1548,14 +1577,21 @@ body.modal-view {
         }
     }
 
+    .none {
+        color: #ccc;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        display: block;
+    }
+
     .sidebar {
         float: left;
         width: 264px;
 
         #profile_photo {
-            @include unselectable;
             width: 264px;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             background: white;
             @include box-shadow(rgba(black, 0.15), 0, 2px, 5px);
 
@@ -1613,16 +1649,21 @@ body.modal-view {
             }
         }
 
-        #meta_info {
+        #meta-info {
           @include content-box;
 
             h3 {
+                background: #F9F9F9;
                 padding: 20px;
                 margin: 0;
                 color: #666;
                 font-weight: bold;
                 font-size: 14px;
                 text-transform: uppercase;
+            }
+
+            .none {
+                padding: 20px;
             }
 
             table {
@@ -1636,7 +1677,11 @@ body.modal-view {
                     position: relative;
                     overflow: hidden;
                     border: none;
-                    border-top: 1px solid #e9e9e9;
+                    border-bottom: 5px solid $border-grey;
+
+                    &:last-child {
+                        border-bottom: 0;
+                    }
 
                     th {
                         padding: 20px 0 0;
@@ -1660,316 +1705,318 @@ body.modal-view {
 
     .main_content {
         float: right;
+        width: 611px;
 
-        .none {
-            background: #bbb;
-            color: white;
-            text-align: center;
-            font-weight: bold;
-            padding: 10px;
-            font-size: 16px;
-            display: block;
-        }
+        .chart {
+            @include content-box;
+            margin-bottom: 5px;
+            width: 100%;
 
-        #fundraising {
-                    @include unselectable;
-                    @include content-box;
-                    margin-bottom: 20px;
-                    width: 596px;
-
-                    h3 {
-                        padding-bottom: 20px;
-                        margin: 0;
-                        color: #666;
-                        font-weight: bold;
-                        font-size: 14px;
-                        text-transform: uppercase;
-                    }
-
-                    .chart {
-                        padding: 20px;
-                    }
-
-                    .meter {
-                        height: 44px;
-                        position: relative;
-                        @include border-radius(5px);
-                        padding: 5px;
-                        @include box-shadow(rgba(black, 0.2), 0, 0, 1px, false, true);
-                        margin-bottom: 5px;
-
-                        .not_started {
-                            display: none;
-                            width: 100%;
-                            position: absolute;
-                            top: 4px;
-                            left: 0;
-                            z-index: 200;
-                            height: 44px;
-                            text-align: center;
-                            font-weight: bold;
-                            font-size: 20px;
-                            color: #f08e28;
-                            line-height: 44px;
-                        }
-
-                        .progress {
-                            display: block;
-                            height: 100%;
-                            width: 0;
-                            @include border-radius(5px);
-                            @include background(linear-gradient(#f08e28, #eb7818));
-                            text-align: center;
-                            font-weight: bold;
-                            font-size: 20px;
-                            color: white;
-                            line-height: 44px;
-
-                            span {
-                                display: none;
-                            }
-                        }
-
-                        .amount {
-                            display: none;
-                            width: 113px;
-                            height: 60px;
-                            position: absolute;
-                            top: 50px;
-                            background: url('images/social/amount_bg.png') no-repeat 0 0;
-                            line-height: 62px;
-                            color: white;
-                            @include text-shadow(black, 0, -1px, 0);
-                            font-weight: bold;
-                            font-size: 20px;
-                            text-align: center;
-                            cursor: default;
-
-                            &:hover {
-                                opacity: 0.5;
-                            }
-                        }
-                    }
-
-                    .meter_labels {
-                        @include clearfix;
-
-                        span {
-                            display: block;
-                            color: #999;
-                            font-weight: bold;
-                        }
-
-                        .lines {
-                            padding: 0;
-                            height: 10px;
-                            border-left: 1px solid #e6e6e6;
-                            border-right: 1px solid #e6e6e6;
-                            width: 548px;
-                            margin: 10px 0 5px 5px;
-                        }
-
-                        .beginning {
-                            float: left;
-                        }
-
-                        .ending {
-                            float: right;
-                            text-align: right;
-                        }
-                    }
-
-                    .projects {
-                        @include unselectable;
-                        border-top: 1px solid #e9e9e9;
-                        padding: 10px 20px 20px;
-
-                        header {
-                            @include clearfix;
-                            height: 44px;
-                            line-height: 44px;
-                            padding-bottom: 10px;
-
-                            h3 {
-                                float: left;
-                                padding: 0;
-                                line-height: 44px;
-                            }
-
-                            .create-project {
-                                @include social_button;
-                                float: right;
-                                display: block;
-                                font-weight: bold;
-                                font-size: 14px;
-                                margin-top: 7px;
-                                height: 27px;
-                                line-height: 27px;
-                                padding: 0 10px;
-                                text-decoration: none;
-                            }
-                        }
-
-                        .project-list {
-                            list-style: none;
-                            margin: 0;
-
-                            li {
-                                @include clearfix;
-                                margin-bottom: 10px;
-                                position: relative;
-
-                                span {
-                                    display: block;
-                                    font-weight: bold;
-                                    font-size: 16px;
-                                    width: 257px;
-                                    padding: 10px 0;
-                                }
-
-                                .project {
-                                    width: 256px;
-                                    padding-right: 20px;
-                                    float: left;
-                                    border: 1px solid #e3e3e3;
-                                    color: $orange;
-                                    @include border-top-left-radius(20px);
-                                    @include border-bottom-left-radius(20px);
-                                    text-align: right;
-                                }
-
-                                .amount-raised {
-                                    padding-left: 20px;
-                                    float: right;
-                                    background: #e9e9e9;
-                                    border-top: 1px solid #e3e3e3;
-                                    border-right: 1px solid #e3e3e3;
-                                    border-bottom: 1px solid #e3e3e3;
-                                    @include border-top-right-radius(20px);
-                                    @include border-bottom-right-radius(20px);
-                                }
-
-                                .destroy {
-                                    background: #999;
-                                    @include border-radius(20px);
-                                    color: white;
-                                    display: block;
-                                    height: 24px;
-                                    margin-top: -12px;
-                                    position: absolute;
-                                    right: 12px;
-                                    text-align: center;
-                                    top: 50%;
-                                    width: 24px;
-                                    text-decoration: none;
-                                    display: none;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                #recent_updates {
-                  @include content-box;
-                  width: 596px;
-
-                  header {
-                    @include clearfix;
-
-                    h3 {
-                        float: left;
-                        padding: 20px;
-                        margin: 0;
-                        color: #666;
-                        font-weight: bold;
-                        font-size: 14px;
-                        text-transform: uppercase;
-                    }
-
-                    .create-update {
-                        @include social_button;
-                        float: right;
-                        margin: 20px 20px 0 0;
-                        display: block;
-                        height: 27px;
-                        line-height: 27px;
-                        text-decoration: none;
-                        padding: 0 10px;
-
-
-                        &:hover {
-                            background-color: #e9e9e9;
-                        }
-                    }
-                }
-
-                .update-list {
-                    padding-bottom: 20px;
-                }
-
-                .none {
-                    margin: 0 20px;
-                }
-
-                .update {
-                    padding: 20px 20px 0;
-
-                    h2 {
-                        margin-bottom: 5px;
-
-                    a {
-                        text-decoration: none;
-                        font-weight: bold;
-                    }
-                }
-
-                .date {
-                    display: block;
-                    margin-bottom: 5px;
-                    font-size: 12px;
-                    color: #999;
-                    font-weight: bold;
-                    text-transform: uppercase;
-                }
-
-                p {
-                    color: #666;
-                    margin: 0;
-                }
+            h3 {
+                padding: 20px;
+                background: #F9F9F9;
+                margin: 0;
+                color: #666;
+                font-weight: bold;
+                font-size: 14px;
+                text-transform: uppercase;
             }
 
-            .more {
-                border-top: 1px solid #e9e9e9;
-                display: none;
-                width: 100%;
-                text-align: center;
+            #chart_progress {
+                padding: 20px;
+            }
 
-                a {
-                    text-transform: uppercase;
-                    padding: 20px 0;
-                    color: $orange;
+            .meter {
+                height: 44px;
+                position: relative;
+                @include border-radius(5px);
+                padding: 5px;
+                @include box-shadow(rgba(black, 0.2), 0, 0, 1px, false, true);
+                margin-bottom: 5px;
+
+                .not_started {
+                    display: none;
+                    width: 100%;
+                    position: absolute;
+                    top: 4px;
+                    left: 0;
+                    z-index: 200;
+                    height: 44px;
+                    text-align: center;
                     font-weight: bold;
-                    text-decoration: none;
+                    font-size: 20px;
+                    color: #f08e28;
+                    line-height: 44px;
+                }
+
+                .progress {
                     display: block;
-                    font-size: 16px;
+                    height: 100%;
+                    width: 0;
+                    @include border-radius(5px);
+                    @include background(linear-gradient(#f08e28, #eb7818));
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 20px;
+                    color: white;
+                    line-height: 44px;
+
+                    span {
+                        display: none;
+                    }
+                }
+
+                .amount {
+                    display: none;
+                    width: 113px;
+                    height: 60px;
+                    position: absolute;
+                    top: 50px;
+                    background: url('images/social/amount_bg.png') no-repeat 0 0;
+                    line-height: 62px;
+                    color: white;
+                    @include text-shadow(black, 0, -1px, 0);
+                    font-weight: bold;
+                    font-size: 20px;
+                    text-align: center;
+                    cursor: default;
+                    z-index: 2000;
 
                     &:hover {
-                        color: white;
-                        background: $orange;
+                        opacity: 0.5;
                     }
                 }
+            }
 
-                .loading {
-                    background: url('images/social/loader.gif') no-repeat center center;
-                    width: 16px;
-                    height: 16px;
-                    text-indent: -3000px;
-                    padding: 20px 0;
-                    margin: 0 auto;
-                    display: none;
+            .meter_labels {
+                @include clearfix;
+
+                span {
+                    display: block;
+                    color: #999;
+                    font-weight: bold;
+                }
+
+                .lines {
+                    padding: 0;
+                    height: 10px;
+                    border-left: 1px solid #e6e6e6;
+                    border-right: 1px solid #e6e6e6;
+                    width: 548px;
+                    margin: 10px 0 5px 5px;
+                }
+
+                .beginning {
+                    float: left;
+                }
+
+                .ending {
+                    float: right;
+                    text-align: right;
                 }
             }
         }
+
+        .projects {
+            @include content-box;
+            margin-bottom: 5px;
+            width: 100%;
+
+            header {
+                @include clearfix;
+                background: #F9F9F9;
+                padding: 20px;
+
+                h3 {
+                    float: left;
+                    margin: 0;
+                    height: 29px;
+                    line-height: 29px;
+                    color: #666;
+                    font-weight: bold;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                }
+
+                .create-project {
+                    @include social_button;
+                    float: right;
+                    display: block;
+                    font-weight: bold;
+                    font-size: 14px;
+                    height: 27px;
+                    line-height: 27px;
+                    padding: 0 10px;
+                    text-decoration: none;
+                }
+            }
+
+            .project-list {
+                list-style: none;
+                margin: 0;
+
+                li {
+                    @include clearfix;
+                    position: relative;
+                    border-bottom: 5px solid $border-grey;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    &.none {
+                        margin-bottom: 0;
+                        padding: 20px;
+                    }
+
+                    span {
+                        display: block;
+                        font-weight: bold;
+                        font-size: 16px;
+                        width: 285px;
+                        padding: 20px 0;
+                    }
+
+                    .project {
+                        padding-right: 20px;
+                        float: left;
+                        color: $orange;
+                        text-align: right;
+                    }
+
+                    .amount-raised {
+                        padding-left: 15px;
+                        float: right;
+                        background: scale-lightness($orange, 99);
+                        border-left: 5px solid $border-grey;
+                    }
+
+                    .destroy {
+                        background: black;
+                        color: white;
+                        display: block;
+                        height: 24px;
+                        margin-top: -12px;
+                        position: absolute;
+                        right: 12px;
+                        text-align: center;
+                        top: 50%;
+                        width: 24px;
+                        text-decoration: none;
+                        display: none;
+
+                        &:hover {
+                            background: $orange;
+                        }
+                    }
+                }
+            }
+        }
+
+        #recent_updates {
+          @include content-box;
+          width: 100%;
+
+          header {
+            @include clearfix;
+            background: #F9F9F9;
+            padding: 20px;
+
+            h3 {
+                float: left;
+                margin: 0;
+                height: 29px;
+                line-height: 29px;
+                color: #666;
+                font-weight: bold;
+                font-size: 14px;
+                text-transform: uppercase;
+            }
+
+            .create-update {
+                @include social_button;
+                float: right;
+                display: block;
+                height: 27px;
+                line-height: 27px;
+                text-decoration: none;
+                padding: 0 10px;
+
+
+                &:hover {
+                    background-color: #E7E7E7;
+                }
+            }
+        }
+
+        .none {
+            padding: 20px;
+        }
+
+        .update {
+            padding: 20px;
+            border-bottom: 5px solid $border-grey;
+
+            &:last-child {
+                border-bottom: 0;
+            }
+
+            h2 {
+                margin-bottom: 5px;
+
+            a {
+                text-decoration: none;
+                font-weight: bold;
+            }
+        }
+
+        .date {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #999;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: #666;
+            margin: 0;
+        }
+    }
+
+    .more {
+        border-top: 5px solid $border-grey;
+        display: none;
+        width: 100%;
+        text-align: center;
+
+        a {
+            text-transform: uppercase;
+            padding: 20px 0;
+            color: $orange;
+            font-weight: bold;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+
+            &:hover {
+                color: white;
+                background: $orange;
+            }
+        }
+
+        .loading {
+            background: url('images/social/loader.gif') no-repeat center center;
+            width: 16px;
+            height: 16px;
+            text-indent: -3000px;
+            padding: 20px 0;
+            margin: 0 auto;
+            display: none;
+        }
+    }
+}
     } // #main_content
 } // #social_page
 
@@ -2481,7 +2528,7 @@ img.aligncenter {
         padding: 0;
 }
     #entry-author-info {
-        border: 1px solid #e7e7e7;
+        border: 1px solid $border-grey;
 }
     #main {
         display: inline;

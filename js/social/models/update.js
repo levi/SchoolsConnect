@@ -20,8 +20,6 @@ SC.Models.Update = SC.Models.Application.extend({
     resp.formatted_created_at = SC.Models.Update.prototype._formatDate.call(this, resp.created_at);
     resp.formatted_updated_at = SC.Models.Update.prototype._formatDate.call(this, resp.updated_at);
 
-    console.log(resp);
-
     return resp;
   },
 

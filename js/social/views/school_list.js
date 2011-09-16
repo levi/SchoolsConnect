@@ -10,18 +10,26 @@ SC.Views.SchoolList = Backbone.View.extend({
 	},
 
 	initialize: function() {
-		_.bindAll(this, 'render', 'add', 'loadMore');
+		_.bindAll(this, 'render', 'addSchool', 'loadMore', 'toggleLoading', 'removeMore', 'onLoadingComplete');
 
-		this.collection.bind('add', this.add, this);
+		this.collection.bind('add', this.addSchool, this);
 		this.collection.bind('reset', this.render, this);
+    this.collection.bind('fetching', this.toggleLoading, this);
+    this.collection.bind('fetched', this.onLoadingComplete, this);
 	},
 
 	render: function() {
 		$(this.el).html(this.template(this.collection.pageInfo())).addClass(this.className);
 
+    if (this.collection.pageInfo().more) {
+      this.$('.more').show();
+    }
+
 		this.$('#school_list').masonry({ itemSelector: '.school' });
 
-		this.collection.each(function(school) { this.add(school); }, this);
+		this.collection.each(function(school) { 
+			this.addSchool(school); 
+		}, this);
 
 		return this;
 	},
@@ -30,7 +38,7 @@ SC.Views.SchoolList = Backbone.View.extend({
     $(this.el).children().remove();
   },
 
-	add: function(school) {
+	addSchool: function(school) {
 		var view = new SC.Views.School({ model: school }),
 			$newView = $(view.render().el);
 	
@@ -40,17 +48,32 @@ SC.Views.SchoolList = Backbone.View.extend({
 							  .masonry('reload');
 
 		$newView.animate({ opacity: 1 }, 200, 'swing');
-
-		if (!this.collection.pageInfo().more) {
-			this.$('.more').fadeOut('fast', function() {
-				$(this).remove();
-			});
-		}
 	},
 
 	loadMore: function() {
-		console.log('loading more...');
 		this.collection.loadMore();
 		return false;
-	}
+	},
+
+  toggleLoading: function(show) {
+    var $more    = this.$('.more'),
+        $link    = $('a', $more),
+        $loading = $('.loading', $more);
+
+    if (show === undefined) show = true;
+    
+    $link.toggle(!show);
+    $loading.toggle(show);
+
+    return this;
+  },
+
+  removeMore: function() {
+    this.$('.more').remove();
+  },
+
+  onLoadingComplete: function() {
+    this.toggleLoading(false);
+    if (!this.collection.pageInfo().more) this.removeMore();
+  }
 });
