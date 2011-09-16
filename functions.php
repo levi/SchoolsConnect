@@ -320,7 +320,7 @@ function save_school_info( $user_id ) {
 		'address'   => $_POST['address'],
 		'address_2' => $_POST['address_2'],
 		'city'      => $_POST['city'],
-		'state'     => $_POST['state'],
+		'state'     => $_POST['state'] == 'Select One' ? '' : $_POST['state'],
 		'zipcode'   => $_POST['zipcode'],
 		'advisor'   => $_POST['advisor'],
 		'goal'		=> $_POST['goal'],
