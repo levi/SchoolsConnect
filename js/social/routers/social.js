@@ -38,19 +38,14 @@ SC.Routers.Social = Backbone.Router.extend({
 	},
 
 	update: function(id, permalink, update_id) {
-		// TODO: Load update via collection if passed.
-		// Probably should use some kind of event, since when the 
-		// collection's selection is set, this route should fire with
-		// the appropriate data.
 		this.update = new SC.Views.UpdateModal({ 
 			school_id: id, 
 			update_id: update_id, 
 			permalink: permalink 
 		});
 
-		var self = this;
 		this.update.bind('modal:closed', function() {
-			self.navigate('school/'+id, true);
+			this.navigate('school/'+id, true);
 		}, this);
 	},
 
@@ -61,7 +56,6 @@ SC.Routers.Social = Backbone.Router.extend({
 				return cacheCallback.call(this, true);
 			}
 		}
-
 	},
 
 	_cleanUpModals: function(callback) {

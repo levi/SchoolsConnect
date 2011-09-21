@@ -1,4 +1,5 @@
 SC.Models.Project = SC.Models.Application.extend({
+
   _type: 'projects',
 
   defaults: { 
@@ -27,4 +28,5 @@ SC.Models.Project = SC.Models.Application.extend({
     if (parseFloat(attrs.amount) < 1.00)
       return "amount raised must be more than $1.";
   }
+
 });

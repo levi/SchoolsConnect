@@ -1,4 +1,5 @@
 SC.Views.Project = Backbone.View.extend({
+
   className: 'project',
   tagName: 'li',
 
@@ -8,19 +9,23 @@ SC.Views.Project = Backbone.View.extend({
     'click .destroy': 'destroy'
   },
 
-  initialize: function() {
+  initialize: function(attr) {
     _.bindAll(this, 'render');
+    
+    this.school = attr.school;
   },
 
   render: function() {
     var self = this;
     $(this.el).html(this.template(this.model.toJSON()));
 
-    $(this.el).hover(function() {
-      self.$('.destroy').show();
-    }, function() {
-      self.$('.destroy').hide();
-    });
+    if (this.school.get('is_admin')) {
+      $(this.el).hover(function() {
+        self.$('.destroy').show();
+      }, function() {
+        self.$('.destroy').hide();
+      });      
+    }
 
     return this;
   },
@@ -36,4 +41,5 @@ SC.Views.Project = Backbone.View.extend({
 
     return false;
   }
+
 });

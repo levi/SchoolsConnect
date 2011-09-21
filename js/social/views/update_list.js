@@ -30,7 +30,6 @@ SC.Views.UpdateList = Backbone.View.extend({
   },
 
   render: function(options) {
-    console.log('render');
     if (this.model.isEmpty()) return this;
     
     $(this.el).html(this.template(this.model.toJSON()));
@@ -38,8 +37,6 @@ SC.Views.UpdateList = Backbone.View.extend({
     if (this.collection.pageInfo().more) 
       this.toggleMore(true);
   
-    console.log($(this.el));
-
     if (this.collection.length > 0)
       this.collection.each(this.addUpdate);
     else

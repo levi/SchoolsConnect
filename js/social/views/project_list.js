@@ -37,7 +37,7 @@ SC.Views.ProjectList = Backbone.View.extend({
   },
 
   addProject: function(project) {
-    var options = {};
+    var options = { school: this.model };
 
     if (project) options.model = project;
 

@@ -23,6 +23,5 @@ SC.Views.Update = Backbone.View.extend({
 
   select: function() {
     this.collection.trigger('select', this.model);
-    console.log("Trigger update select", this.model);
   }
 });
