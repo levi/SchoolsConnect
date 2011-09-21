@@ -27,6 +27,7 @@ SC.Models.School = SC.Models.Application.extend({
   },
   
   _resetCollections: function() {
+    if (this.hasChanged('image') && !this.hasChanged('name')) return false;
     if (!this.isEmpty()) {      
       var updates = this.get('_updates');
       this.updates.reset(updates.models);
