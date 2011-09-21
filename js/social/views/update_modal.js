@@ -1,4 +1,5 @@
 SC.Views.UpdateModal = SC.Views.Modal.extend({
+
   template: _.template($('#template-update-modal').html()),
 
   events: {
@@ -33,4 +34,5 @@ SC.Views.UpdateModal = SC.Views.Modal.extend({
     });
     return false;
   }
+
 });

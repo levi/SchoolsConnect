@@ -1,11 +1,13 @@
 /*
-  Update List Collection
+  Collection for the profile's update list.
 */
 SC.Collections.Updates = SC.Collections.Paginated.extend({
-	_type: 'updates',
-	model: SC.Models.Update,
 
+	_type: 'updates',
+	
 	_perPage: 3,
+
+	model: SC.Models.Update,
 
 	parse: function(resp) {
 		this.total = resp.total;
@@ -23,4 +25,5 @@ SC.Collections.Updates = SC.Collections.Paginated.extend({
 	comparator: function(update) {
 		return update.get('created_at').getTime();
 	}
+
 });

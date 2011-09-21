@@ -11,13 +11,15 @@ SC.Collections.Projects = SC.Collections.Application.extend({
   initialize: function() {
     _.bindAll(this, 'calculateTotal');
 
-    this.bind('reset', this.calculateTotal, this);
     this.bind('add', this.calculateTotal, this);
     this.bind('remove', this.calculateTotal, this);
+    this.bind('reset', this.calculateTotal, this);
+    
+    this.calculateTotal();
   },
 
   parse: function(resp) {
-    var resp = _.map(resp, function(model) {
+    resp = _.map(resp, function(model) {
       return SC.Models.Project.prototype.parse.call(this, model);
     }, this);
     return resp;
@@ -28,10 +30,12 @@ SC.Collections.Projects = SC.Collections.Application.extend({
   },
 
   calculateTotal: function() {
+    var oldValue = this.totalRaised;
     this.totalRaised = this.reduce(function(memo, project) {
       return memo + parseFloat(project.get('amount'));
     }, 0);
-    this.trigger('total:calculated');
+
+    if (oldValue !== this.totalRaised) this.trigger('total:calculated');
   }
 
 });

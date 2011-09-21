@@ -15,12 +15,16 @@ SC.Views.ProjectList = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, 'render', 'addProject', 'create', 'toggleBlankState');
 
+    this.collection = this.model.projects;
+
     this.collection.bind('reset', this.render, this);
     this.collection.bind('add', this.addProject, this);
     this.collection.bind('all', this.toggleBlankState, this);
   },
 
   render: function() {
+    if (this.model.isEmpty()) return this;
+
     $(this.el).html(this.template(this.model.toJSON()));
 
     if (this.collection.length > 0) {

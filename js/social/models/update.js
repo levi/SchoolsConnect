@@ -8,8 +8,17 @@ SC.Models.Update = SC.Models.Application.extend({
     'formatted_updated_at': ''
   },
 
-  initialize: function() {
+  initialize: function(attr) {
     _.bindAll(this, '_formatDate', 'formatDates');
+
+    if (_.isNumber(attr.created_at))
+      this.set({'created_at': new Date(attr.created_at)}, { silent: true });
+
+    if (_.isNumber(attr.updated_at))
+      this.set({'updated_at': new Date(attr.updated_at)}, { silent: true });
+
+    this.formatDates();
+
     this.bind('change:created_at', this.formatDates, this);
     this.bind('change:updated_at', this.formatDates, this);
   },
@@ -24,7 +33,7 @@ SC.Models.Update = SC.Models.Application.extend({
   },
 
   validate: function(attrs) {
-    if (!(attrs.formatted_created_at && attrs.formatted_updated_at)) {
+    if (!attrs.excerpt) {
       if (_.isEmpty(attrs.title))
         return "update must have a title.";
 
@@ -37,7 +46,7 @@ SC.Models.Update = SC.Models.Application.extend({
     this.set({
       formatted_created_at: this._formatDate(this.get('created_at')),
       formatted_updated_at: this._formatDate(this.get('updated_at'))
-    });
+    }, { silent: true });
   },
 
   _formatDate: function(date) {

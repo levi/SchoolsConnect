@@ -5,6 +5,7 @@
   more updates until there are no more.
 */
 SC.Views.UpdateList = Backbone.View.extend({
+
   id: 'recent_updates',
 
   template: _.template($('#template-updates-list').html()),
@@ -17,46 +18,50 @@ SC.Views.UpdateList = Backbone.View.extend({
   },
 
   initialize: function() {
-    _.bindAll(this, 'render', 'addUpdate', 'create', 'loadMore', 'toggleLoading', 'removeMore', 'onLoadingComplete');
+    _.bindAll(this, 'render', 'addUpdate', 'create', 'loadMore', 'toggleLoading', 'toggleMore', 'onLoadingComplete');
 
-    this.collection.bind('add', this.addUpdate, this);
+    this.collection = this.model.updates;
+
     this.collection.bind('reset', this.render, this);
+    this.collection.bind('add', this.addUpdate, this);
     this.collection.bind('fetching', this.toggleLoading, this);
     this.collection.bind('fetched', this.onLoadingComplete, this);
     this.collection.bind('all', this.toggleBlankState, this);
   },
 
   render: function(options) {
-    var $template = $(this.template(this.model.toJSON()));
+    console.log('render');
+    if (this.model.isEmpty()) return this;
+    
+    $(this.el).html(this.template(this.model.toJSON()));
 
-    if (this.collection.pageInfo().more) {
-      $template.find('.more').show();
-    }
+    if (this.collection.pageInfo().more) 
+      this.toggleMore(true);
+  
+    console.log($(this.el));
 
-    $(this.el).html($template);
-
-    this.collection.each(function(model) {
-      this.addUpdate(model);
-    }, this);
+    if (this.collection.length > 0)
+      this.collection.each(this.addUpdate);
+    else
+      this.toggleBlankState();
 
     return this;
   },
 
   addUpdate: function(model, options) {
     options || ( options = {} );
-    var view  = new SC.Views.Update({ model: model }),
+
+    var view  = new SC.Views.Update({ model: model, collection: this.collection }),
         $el   = $(view.render().el),
         $list = this.$('.update-list');
     
-    if (model.get('wasFetched')) { 
+    if (model.get('wasFetched')) 
       $el.appendTo($list);
-    } else { 
-      $el.prependTo($list); 
-    }
+    else
+      $el.prependTo($list);
 
-    if (this.collection.pageInfo().more) {
-      this.$('.more').show();
-    }
+    if (this.collection.pageInfo().more)
+      this.toggleMore(true);
   },
 
   create: function(evt) {
@@ -83,14 +88,19 @@ SC.Views.UpdateList = Backbone.View.extend({
 
     return this;
   },
-
-  removeMore: function() {
-    this.$('.more').remove();
+  
+  toggleMore: function(show) {
+    var $more = this.$('.more');
+    if (show) {
+      $more.css('display', 'block');
+    } else {
+      $more.hide();
+    }
   },
 
   onLoadingComplete: function() {
     this.toggleLoading(false);
-    if (!this.collection.pageInfo().more) this.removeMore();
+    if (!this.collection.pageInfo().more) this.toggleMore(false);
   },
 
   toggleBlankState: function() {
@@ -104,4 +114,5 @@ SC.Views.UpdateList = Backbone.View.extend({
       if ($blankElement.length > 0) $blankElement.remove();
     }
   }
+  
 });

@@ -307,7 +307,7 @@ get_header(); ?>
 			<a href="#" class="left cancel">&larr; Cancel</a>
 		</div>
 		<div class="modal-page editor">
-			<h2>Create Project</h2>
+			<h2>Create Update</h2>
 			<form action="#" method="post">
 				<p>
 					<label for="title">Title</label>
@@ -361,6 +361,45 @@ if ($schools) {
 	$data['offset'] = 1;
 
 	foreach ($schools as $school) {
+		$projects = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}school_projects WHERE school_id = {$school->school_id}" ) );
+		$project_data = array();
+
+		if ($projects) 
+		{
+			foreach ($projects as $project) 
+			{
+				$project_data[] = array(
+					'id'		 => (int) $project->id,
+					'name'       => $project->name,
+					'amount'     => $project->amount,
+					'created_at' => strtotime($project->created_at)*1000,
+					'updated_at' => strtotime($project->updated_at)*1000,
+				);
+			}
+		}
+
+		$updates = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}school_updates WHERE school_id = {$school->school_id} ORDER BY created_at DESC LIMIT 0, 3" ) );
+		$update_data = array( 'models' => array(), 'total' => 0, 'offset' => 1, );
+
+		if ($updates) 
+		{
+			$update_count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}school_updates WHERE school_id = {$school->school_id}" ) );
+			$update_data['total'] = (int) $update_count;
+
+			foreach ($updates as $update) 
+			{
+				$update_data['models'][] = array(
+					'id'		 => (int) $update->id,
+					'title'      => $update->title,
+					'excerpt'    => $update->excerpt,
+					'permalink'  => $update->permalink,
+					'school_id'  => (int) $update->school_id,
+					'created_at' => strtotime($update->created_at)*1000,
+					'updated_at' => strtotime($update->updated_at)*1000,
+				);
+			}
+		}
+
 		$data['models'][] = array(
 			'id'         => $school->school_id,
 			'name'       => $school->name,
@@ -375,6 +414,8 @@ if ($schools) {
 			'leaders'    => empty($school->leaders) ? array() : explode(', ', $school->leaders),
 			'members'    => empty($school->members) ? array() : explode(', ', $school->members),
 			'is_admin'   => (bool) ($school->school_id == $current_user->ID),
+			'_projects'   => $project_data,
+			'_updates'    => $update_data,
 		);
 	}
 }

@@ -1,7 +1,8 @@
 /*
-  Profile Info View
+  School info sidebar view. Delegates photot to ProfilePhoto view.
 */
-SC.Views.ProfileInfo = Backbone.View.extend({
+SC.Views.SchoolInfo = Backbone.View.extend({
+
   className: 'sidebar',
 
   template: _.template($('#template-profile-info').html()),
@@ -12,6 +13,8 @@ SC.Views.ProfileInfo = Backbone.View.extend({
   },
 
   render: function() {    
+    if (this.model.isEmpty()) return this;
+
     var profilePhoto = new SC.Views.ProfilePhoto({ model: this.model });
 
     $(this.el).html(profilePhoto.render().el)

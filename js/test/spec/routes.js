@@ -1,24 +1,18 @@
-router = new SC.Router();
-
 describe("Application Routes", function() {
+
   beforeEach(function() {
-    this.router   = router;
+    this.router   = new SC.Routers.Social();
     this.routeSpy = sinon.spy();
+    try {
+      Backbone.history.start({silent:true, pushState:true});
+    } catch(e) {}
   });
 
-  afterEach(function() {
-    window.location.hash = '';
+	it("fires the index route with a blank hash", function() {
+    this.router.bind("route:index", this.routeSpy);
+    this.router.navigate("", true);
+    expect(this.routeSpy).toHaveBeenCalledOnce();
+    expect(this.routeSpy).toHaveBeenCalledWith();
   });
 
-	describe("index route", function() {
-    describe("when route is accessed for the first time", function() {
-      it("creates a SchoolsList collection", function() {
-        
-      });
-
-      it("creates a SchoolsList view", function() {
-        
-      });
-    });
-  });
 });

@@ -1,7 +1,15 @@
 SC.Collections.Paginated = SC.Collections.Application.extend({
-  initialize: function() {
+  
+  offset: 1,
+  
+  total: 0,
+  
+  initialize: function(models, options) {
     _.bindAll(this, 'parse', 'url', 'pageInfo', 'loadMore');
     this._perPage = this._perPage || 12;
+
+    this.offset = options.offset || this.offset;
+    this.total = options.total || this.total;
   },
 
   parse: function(resp) {

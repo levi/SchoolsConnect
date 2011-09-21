@@ -8,6 +8,10 @@ SC.Views.Update = Backbone.View.extend({
 
   template: _.template($('#template-update').html()),
 
+  events: {
+    'click h2 a': 'select'
+  },
+
   initialize: function() {
     _.bindAll(this, 'render');
   },
@@ -16,4 +20,9 @@ SC.Views.Update = Backbone.View.extend({
     $(this.el).html(this.template(this.model.toJSON()));
     return this;
   },
+
+  select: function() {
+    this.collection.trigger('select', this.model);
+    console.log("Trigger update select", this.model);
+  }
 });

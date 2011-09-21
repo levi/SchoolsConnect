@@ -1,7 +1,8 @@
 SC.Routers.Social = Backbone.Router.extend({
+
 	routes: {
 		'': 'index',
-		'school/:id': 'page',
+		'school/:id': 'school',
 		'school/:id/update/:permalink-:update_id': 'update'
 	},
 
@@ -11,8 +12,8 @@ SC.Routers.Social = Backbone.Router.extend({
 	},
 
 	initialize: function(schools) {
-		_.bindAll(this, 'index', 'page', 'update', '_loadProfile');
-		this.schools = new SC.Collections.Schools(schools.models, schools);
+		_.bindAll(this, 'index', 'school', 'update', '_loadProfile');
+		if (schools) this.schools = new SC.Collections.Schools(schools.models, schools);
 	},
 
 	beforeRoute: function(callback) {
@@ -30,9 +31,10 @@ SC.Routers.Social = Backbone.Router.extend({
 		this.schoolList.render();
 	},
 
-	page: function(id) {
+	school: function(id) {
 		this.schools.selectSchool(id);
-		new SC.Views.Profile({ collection: this.schools });
+		this.schoolProfile = new SC.Views.Profile({ collection: this.schools });
+		$('#social_page').html(this.schoolProfile.render().el);
 	},
 
 	update: function(id, permalink, update_id) {
@@ -52,23 +54,14 @@ SC.Routers.Social = Backbone.Router.extend({
 		}, this);
 	},
 
-	_loadProfile: function(id, callback) {
-		// ariving from the index?
-		if (this.schoolList) {
-			var school = this.schoolList.collection.get(id);
-			if (school) this.school = school;
-		}
-
-		this.school_id = id;
+	_loadProfile: function(cacheCallback) {
 		// skip reloading the profile if currently viewing
-		if (this.profile) {
-			if (this.profile.id === id) {
-				return callback();
+		if (this.schoolProfile) {
+			if (this.schoolProfile === this.schools.selection) {
+				return cacheCallback.call(this, true);
 			}
 		}
 
-		this.profile = new SC.Views.Profile({ model: this.school });
-		if (callback) this.profile.bind('loaded', callback, this);
 	},
 
 	_cleanUpModals: function(callback) {
@@ -80,4 +73,5 @@ SC.Routers.Social = Backbone.Router.extend({
 			}
 		}
 	}
+
 });

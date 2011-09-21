@@ -6,6 +6,14 @@ SC.Models.Project = SC.Models.Application.extend({
     'updated_at': new Date()
   },
 
+  initialize: function(attr) {
+    if (_.isNumber(attr.created_at))
+      this.set({'created_at': new Date(attr.created_at)}, { silent: true });
+
+    if (_.isNumber(attr.updated_at))
+      this.set({'updated_at': new Date(attr.updated_at)}, { silent: true });
+  },
+
   parse: function(resp) {
     resp.created_at = new Date(resp.created_at);
     resp.updated_at = new Date(resp.updated_at);

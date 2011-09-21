@@ -39,15 +39,13 @@ SC.Views.SchoolList = Backbone.View.extend({
   },
 
 	addSchool: function(school) {
-		var view = new SC.Views.School({ model: school }),
+		var view = new SC.Views.School({ 
+				collection: this.collection, 
+				model: school 
+			}),
 			$newView = $(view.render().el);
-	
-		$newView.css('opacity', 0);
 
-		this.$('#school_list').append($newView)
-							  .masonry('reload');
-
-		$newView.animate({ opacity: 1 }, 200, 'swing');
+		this.$('#school_list').append($newView).masonry('reload');
 	},
 
 	loadMore: function() {

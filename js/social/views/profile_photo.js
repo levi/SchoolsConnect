@@ -18,24 +18,10 @@ SC.Views.ProfilePhoto = Backbone.View.extend({
 
   render: function() {
     var self = this;
+    
+    if (this.model.isEmpty()) return this;
   
     $(this.el).html(this.template(this.model.toJSON()));
-
-    // self.uploader = new AjaxUpload(self.$('.change_image'), {
-    //     action: '/social/photo',
-    //     onSubmit: function(file , ext){
-    //       if ( ext && /^(jpg|png|jpeg|gif)$/.test(ext) ){
-    //         self.trigger('uploading');
-    //       } else {                
-    //         console.log('Error: only images are allowed');
-    //         return false;               
-    //       }      
-    //     },
-    //     onComplete: function(file, resp){
-    //       self.trigger('uploaded');
-    //       console.log(file, resp);
-    //     }       
-    //   });
 
     return this;
   },

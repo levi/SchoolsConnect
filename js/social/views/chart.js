@@ -1,10 +1,14 @@
 SC.Views.Chart = Backbone.View.extend({
+
 	className: 'chart',
 
 	template: _.template($('#template-chart').html()),
 
 	initialize: function() {
 		_.bindAll(this, 'render', 'getPercentage', 'showProgress', 'showAmountTip');
+		
+		this.collection = this.model.projects;
+		
 		this.collection.bind('total:calculated', this.render, this);
 	},
 
@@ -16,22 +20,25 @@ SC.Views.Chart = Backbone.View.extend({
 			total: this._formatNumber(Math.ceil(this.collection.totalRaised)),
 			completed: ((this.getPercentage() === "100%") ? true : false),
 			notStarted: ((this.getPercentage() === "0%") ? true : false)
-	    }));
-	    this.showProgress();
-	    return this;
+    }));
+
+    this.showProgress();
+
+    return this;
 	},
 
 	getPercentage: function() {
 		var percent = ( this.collection.totalRaised / this.model.get('goal') ) * 100;
-		if (percent > 100) percent = 100;
+		if (_.isNaN(percent)) percent = 0;
+		if (percent > 100) percent = 100;		
 		return percent +'%';
 	},
 
 	showProgress: function() {
 		var self       = this,
-			$progress  = this.$('.progress'),
-			percentage = self.getPercentage(),
-			hasStarted = (percentage !== "0%");
+        $progress  = this.$('.progress'),
+        percentage = self.getPercentage(),
+        hasStarted = (percentage !== "0%");
 
 		$progress.animate({
 			width: percentage
@@ -74,4 +81,5 @@ SC.Views.Chart = Backbone.View.extend({
 		}
 		return x1 + x2;
 	}
+
 });
