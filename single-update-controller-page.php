@@ -35,12 +35,12 @@ class SingleUpdateController extends RestController
 			$data = array(
 				'id'		 => (int) $update->id,
 				'title'      => $update->title,
-				'excerpt'    => $update->excerpt,
 				'content'    => $update->content,
 				'permalink'  => $update->permalink,
 				'school_id'  => (int) $update->school_id,
 				'created_at' => strtotime($update->created_at)*1000,
 				'updated_at' => strtotime($update->updated_at)*1000,
+				'is_admin'   => (bool) ($update->school_id == $this->user->ID),
 			);
 	
 			RestUtils::sendResponse(200, json_encode($data));

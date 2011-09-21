@@ -12,8 +12,8 @@ SC.Views.Chart = Backbone.View.extend({
 		this.collection.bind('total:calculated', this.render, this);
 	},
 
-	render: function() {
-		if (this.model.get('goal') === undefined) return this;
+	render: function() {    
+		if (_.isUndefined(this.model.get('goal'))) return this;
 
 		$(this.el).html(this.template({
 			goal: this.model.get('goal'),
@@ -21,7 +21,7 @@ SC.Views.Chart = Backbone.View.extend({
 			completed: ((this.getPercentage() === "100%") ? true : false),
 			notStarted: ((this.getPercentage() === "0%") ? true : false)
     }));
-
+    
     this.showProgress();
 
     return this;

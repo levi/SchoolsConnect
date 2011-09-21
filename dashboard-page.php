@@ -325,10 +325,12 @@ get_header(); ?>
 	</div>
 </script>
 
-<script type="text/template" id="template-update-modal-loading">
-	<div class="modal-loading">
-		<img src="<?php bloginfo('stylesheet_directory') ?>/images/social/profile_loader.gif" alt="Loading Update" />
-		<h3>Loading</h3>
+<script type="text/template" id="template-modal-loading">
+	<div class="modal-overlay">
+		<div class="modal-loading">
+			<img src="<?php bloginfo('stylesheet_directory') ?>/images/social/profile_loader.gif" alt="Loading Update" />
+			<h3>Loading</h3>
+		</div>
 	</div>
 </script>
 
@@ -337,7 +339,9 @@ get_header(); ?>
 		<% if (title) { %>
 			<div class="modal-toolbar">
 				<a href="#" class="left close">&larr; Back to school's profile</a>
-				<a href="#" class="right destroy">Delete</a>
+				<% if (is_admin) { %>
+					<a href="#" class="right destroy">Delete</a>
+				<% } %>
 			</div>
 			<div class="modal-page">
 				<header>

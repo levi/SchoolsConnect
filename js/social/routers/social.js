@@ -61,9 +61,9 @@ SC.Routers.Social = Backbone.Router.extend({
 	_cleanUpModals: function(callback) {
 		if (callback !== SC.Routers.Social.prototype.update) {
 			if ($('body').hasClass('modal-view')) {
-				$('.modal-overlay').remove();
-			    $('#header, #wrapper, #footer').show();
-			    $('body').removeClass('modal-view'); 
+        $('#modal').remove();
+        $('#header, #wrapper, #footer').show();
+        $('body').removeClass('modal-view'); 
 			}
 		}
 	}

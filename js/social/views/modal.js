@@ -1,6 +1,11 @@
 SC.Views.Modal = Backbone.View.extend({
+
+  id: 'modal',
+  
+  loadingTemplate: _.template($('#template-modal-loading').html()),
+
   initialize: function() {
-    _.bindAll(this, 'render', 'unrender', 'close', '_toggleModal');
+    _.bindAll(this, 'render', 'unrender', 'close', '_toggleModal', '_showLoading');
   
     this.bind('modal:closing', this.unrender, this);
     this.render();
@@ -10,19 +15,35 @@ SC.Views.Modal = Backbone.View.extend({
     'click .close': 'close'
   },
 
-  render: function(template) {
+  render: function(template, options) {
+    options || (options = {});
+    var $modal = $('.modal-overlay');
+
+    // Add a loading state
+    if (options.isLoading) {
+      template = this.loadingTemplate();
+      _.delay(this._showLoading, 300);
+    }
+    
     $(this.el).html(template || this.template(this.model.toJSON()));
 
-    if (this.didRenderTemplate) this.didRenderTemplate.apply(this);
+    // Callback method
+    if (this.didRenderTemplate) 
+      this.didRenderTemplate.apply(this);
 
+    // hide background elements
     this._toggleModal(false);
 
+    // cleanup if there is a current modal
+    if ($modal.length) $modal.remove();
+
+    // Reveal modal to client
     $('body').append(this.el);
     this.trigger('modal:opened');
   },
 
   unrender: function() {
-    this.remove();
+    this.remove();    
     this._toggleModal(true);
     this.trigger('modal:closed');
   },
@@ -38,17 +59,8 @@ SC.Views.Modal = Backbone.View.extend({
     $('body').toggleClass('modal-view', !show); 
   },
 
-  _onOpen: function(dialog) {
-    dialog.overlay.fadeIn('fast');
-    dialog.container.show();
-    dialog.data.fadeIn('fast');
-  },
-
-  _onShow: function(dialog) {
-    $('input[placeholder], textarea[placeholder]', dialog.data).placeholder();
-  },
-
-  _onClose: function(dialog) {
-    $.modal.close();
+  _showLoading: function() {
+    this.$('.modal-loading').show();
   }
+
 });

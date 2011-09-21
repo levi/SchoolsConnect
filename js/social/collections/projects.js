@@ -4,7 +4,7 @@
 SC.Collections.Projects = SC.Collections.Application.extend({
   _type: 'projects',
 
-  totalRaised: 0,
+  totalRaised: null,
 
   model: SC.Models.Project,
 
@@ -35,7 +35,7 @@ SC.Collections.Projects = SC.Collections.Application.extend({
       return memo + parseFloat(project.get('amount'));
     }, 0);
 
-    if (oldValue !== this.totalRaised) this.trigger('total:calculated');
+    this.trigger('total:calculated');
   }
 
 });

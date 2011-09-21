@@ -1506,7 +1506,7 @@ body.modal-view, .modal-overlay {
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 100;
+  z-index: 5000;
 }
 
 /* line 1164, scss/style.scss */

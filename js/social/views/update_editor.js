@@ -53,6 +53,8 @@ SC.Views.UpdateEditorModal = SC.Views.Modal.extend({
     var self    = this,
         title   = this.$('#update_editor_title').val(),
         content = this.$('#update_editor_content').val();
+        
+    this.render(this.model, { isLoading: true });
     
     this.model.save({ title: title, content: content }, {
       success: function(model, resp) {

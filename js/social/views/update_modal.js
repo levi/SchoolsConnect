@@ -2,48 +2,53 @@ SC.Views.UpdateModal = SC.Views.Modal.extend({
 
   template: _.template($('#template-update-modal').html()),
 
-  loadingTemplate: _.template($('#template-update-modal-loading').html()),
-
   events: {
     'click .close': 'close',
     'click .destroy': 'destroy'
   },
 
   initialize: function(options) {
-    _.bindAll(this, 'render', 'destroy', '_showLoading');
+    _.bindAll(this, 'render', 'destroy');
 
     this.model = options.model || new SC.Models.Update({ id: options.update_id, school_id: options.school_id });
     this.model.bind('change', this.render, this);
 
-    // Fetch if modal is not in the collection.
-    if (_.isEmpty(this.model.get('title'))) this.model.fetch();
+    // Fetch modal if not loaded.
+    if (_.isEmpty(this.model.get('title')))
+      this.model.fetch();
 
     SC.Views.Modal.prototype.initialize.call(this);
   },
 
-  render: function() {
-    var template = null;
+  render: function(update, options) {
+    options || ( options = {} );
     // Add a loading state
-    if (_.isUndefined(this.model.get('title'))) {
-      template = this.loadingTemplate();
-      _.delay(this._showLoading, 300);
+    if (_.isUndefined(this.model.get('title')))
+      options.isLoading = true;
+
+    SC.Views.Modal.prototype.render.call(this, null, options);
+  },
+
+  destroy: function(evt) {
+    evt.preventDefault();
+    var self = this;
+
+    if (window.confirm("Are you sure you want to delete this update?")) {
+      this.render(this.model, { isLoading: true });
+
+      this.model.destroy({        
+        success: function() {
+          self.close(evt);
+        },
+        
+        error: function(resp) {
+          alert(JSON.stringify(resp));
+          self.close(evt);
+        }
+      });
     }
 
-    SC.Views.Modal.prototype.render.call(this, template);
-  },
-
-  destroy: function() {
-    var self = this;
-    this.model.destroy({
-      success: function() {
-        self.close();
-      }
-    });
     return false;
-  },
-  
-  _showLoading: function() {
-    this.$('.modal-loading').show();
   }
 
 });
