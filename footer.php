@@ -34,31 +34,23 @@
 		<script src="<?php bloginfo('stylesheet_directory') ?>/js/plugins.js"></script>
 
 		<?php if (is_user_logged_in()): ?>
-		<script src="<?php bloginfo('stylesheet_directory') ?>/js/backbone.js"></script>
-		<script src="<?php bloginfo('stylesheet_directory') ?>/js/libs/json2.js"></script>
-		<?php
-			function load_backbone($type)
-			{
-				$script_dir = substr($_SERVER['SCRIPT_FILENAME'], 0, strrpos($_SERVER['SCRIPT_FILENAME'], '/'));
-				$js_dir = $script_dir.'/wp-content/themes/schoolsconnect/js/social/'.$type;
-				if ($handle = opendir($js_dir)) {
-				    while (false !== ($file = readdir($handle))) {
-				    	if ($file != '.' && $file != '..') {
-					        echo '<script src="'.get_bloginfo('stylesheet_directory').'/js/social/'.$type.'/'.$file.'"></script>'."\n";
-				    	}
-				    }
+			<?php
+				function load_backbone($type)
+				{
+					$ret = array();
+					$script_dir = substr($_SERVER['SCRIPT_FILENAME'], 0, strrpos($_SERVER['SCRIPT_FILENAME'], '/'));
+					$js_dir = $script_dir.'/wp-content/themes/schoolsconnect/js/social/'.$type;
+					if ($handle = opendir($js_dir)) {
+					    while (false !== ($file = readdir($handle))) {
+					    	if ($file != '.' && $file != '..' && $file != '.DS_Store') {
+						        $ret[] = 'social/'.$type.'/'.$file;
+					    	}
+					    }
+					}
+					return implode(',', $ret);
 				}
-			}
-		?>
-		<script src="<?php bloginfo('stylesheet_directory') ?>/js/fileuploader.js"></script>
-		<script src="<?php bloginfo('stylesheet_directory') ?>/js/tinymce.js"></script>
-		<script src="<?php bloginfo('stylesheet_directory') ?>/js/simplemodal.js"></script>
-		<script src="<?php bloginfo('stylesheet_directory') ?>/js/social/app.js"></script>
-		<script src="<?php bloginfo('stylesheet_directory') ?>/js/masonry.js"></script>
-		<?php load_backbone('models'); ?>
-		<?php load_backbone('collections'); ?>
-		<?php load_backbone('views'); ?>
-		<?php load_backbone('routers'); ?>
+			?>
+			<script src="<?php bloginfo('stylesheet_directory') ?>/min/?b=wp-content/themes/schoolsconnect/js&amp;f=backbone.js,libs/json2.js,fileuploader.js,tinymce.js,masonry.js,social/app.js,<?php echo load_backbone('models'); ?>,<?php echo load_backbone('collections'); ?>,<?php echo load_backbone('views'); ?>,<?php echo load_backbone('routers'); ?>"></script>
 		<?php endif ?>
 		<script src="<?php bloginfo('stylesheet_directory') ?>/js/tooltip.js"></script>
 		<script src="<?php bloginfo('stylesheet_directory') ?>/js/common.js"></script>

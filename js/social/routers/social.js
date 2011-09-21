@@ -63,7 +63,6 @@ SC.Routers.Social = Backbone.Router.extend({
 	},
 
 	_cleanUpModals: function(callback) {
-	  console.log('cleanup');
 		if (callback !== SC.Routers.Social.prototype.update) {
       $('#modal').remove();
       $('#header, #wrapper, #footer').show();
