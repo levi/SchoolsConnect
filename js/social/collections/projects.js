@@ -35,9 +35,6 @@ SC.Collections.Projects = SC.Collections.Application.extend({
     this.totalRaised = this.reduce(function(memo, project) {
       return memo + parseFloat(project.get('amount'));
     }, 0);
-    
-    console.log('calculateTotal');
-
     this.trigger('total:calculated');
   }
 

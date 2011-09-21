@@ -356,6 +356,13 @@ get_header(); ?>
 	</div>
 </script>
 
+<script type="text/template" id="template-not-found">
+	<h1 class="entry-title">Not Found</h1>
+	<div class="entry-content">
+		<p>Apologies, but the page you requested could not be found.<br /><br /></p>
+	</div><!-- .entry-content -->
+</script>
+
 <!-- /end Templates -->
 
 <?php

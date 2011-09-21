@@ -8,10 +8,15 @@ SC.Collections.Schools = SC.Collections.Paginated.extend({
     Select a model to be shown in a profile.
    */
   selectSchool: function(school_id) {
+    var self = this;
     this.selection = this.get(school_id) || new SC.Models.School({ id: school_id });
 
     if (this.selection.isEmpty()) {
-      this.selection.fetch();
+      this.selection.fetch({
+        error: function(resp) {
+          self.trigger('notFound');
+        }
+      });
     }
   }
 

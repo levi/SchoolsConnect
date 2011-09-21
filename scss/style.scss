@@ -1392,93 +1392,6 @@ body.modal-view {
     }
 }
 
-.editor_pane {
-    top: 1000px;
-    bottom: 0px;
-    left: 50%;
-    margin-left: -348px;
-    width: 768px;
-    position: fixed;
-    z-index: 2000;
-
-    .toolbar {
-        @include clearfix;
-        height: 44px;
-        width: 738px;
-        padding: 0 15px;
-        background: white;
-        @include background(linear-gradient(#f08e28, #eb7818));
-        border-bottom: 1px solid #d16b17;
-        @include border-top-left-radius(5px);
-        @include border-top-right-radius(5px);
-
-        a {
-            @include social_button;
-            border: 1px solid #d16b17;
-            display: block;
-            text-decoration: none;
-            height: 27px;
-            line-height: 27px;
-            margin-top: 7px;
-            padding: 0 20px;
-            font-size: 14px;
-            font-weight: bold;
-
-            &.left {
-                float: left;
-            }
-
-            &.right {
-                float: right;
-            }
-
-            &.close {
-                height: 44px;
-                width: 26px;
-                display: block;
-                background: url('images/social/close_btn.png') no-repeat 0 14px;
-                text-indent: -3000px;
-                border: none;
-                @include border-radius(0);
-                padding: 0;
-                margin: 0;
-
-                &:hover {
-                    background-position: 0 -17px;
-                }
-            }
-
-            &.delete {
-                height: 44px;
-                width: 26px;
-                display: block;
-                background: url('images/social/trash_btn.png') no-repeat 0 10px;
-                text-indent: -3000px;
-                border: none;
-                @include border-radius(0);
-                padding: 0;
-                margin: 0;
-
-                &:hover {
-                    background-position: 0 -25px;
-                }
-            }
-        }
-    }
-
-    .editor {
-        height: 100%;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        background: white;
-        width: 728px;
-        padding: 20px;
-        @include border-bottom-left-radius(5px);
-        @include border-bottom-right-radius(5px);
-
-    }
-}
-
 #tinymce {
     padding: 10px;
     font-size: 14px;
@@ -1492,6 +1405,14 @@ body.modal-view {
         width: 880px;
         padding: 220px 0;
         text-align: center;
+    }
+    
+    .page {
+      @include content-box;
+      float: left;
+      width: 840px;
+      padding: 20px 20px 0 20px;
+      margin-bottom: 500px;
     }
 
     &.school_list {

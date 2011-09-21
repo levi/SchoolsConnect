@@ -9,18 +9,23 @@ SC.Views.UpdateModal = SC.Views.Modal.extend({
 
   initialize: function(options) {
     _.bindAll(this, 'render', 'destroy');
-
+    var self = this;
     this.model = options.model || new SC.Models.Update({ id: options.update_id, school_id: options.school_id });
     this.model.bind('change', this.render, this);
 
     // Fetch modal if not loaded.
     if (_.isEmpty(this.model.get('title')))
-      this.model.fetch();
+      this.model.fetch({
+        error: function(resp) {
+          self.trigger('modal:error', resp);
+        }
+      });
 
     SC.Views.Modal.prototype.initialize.call(this);
   },
 
   render: function(update, options) {
+    console.log('updateModal render');
     options || ( options = {} );
     // Add a loading state
     if (_.isUndefined(this.model.get('title')))

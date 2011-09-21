@@ -3,7 +3,8 @@ SC.Routers.Social = Backbone.Router.extend({
 	routes: {
 		'': 'index',
 		'school/:id': 'school',
-		'school/:id/update/:permalink-:update_id': 'update'
+		'school/:id/update/:permalink-:update_id': 'update',
+		'*path': 'notFound'
 	},
 
 	route: function(route, name, callback) {
@@ -12,8 +13,11 @@ SC.Routers.Social = Backbone.Router.extend({
 	},
 
 	initialize: function(schools) {
-		_.bindAll(this, 'index', 'school', 'update', '_loadProfile');
+		_.bindAll(this, 'index', 'school', 'update', 'notFound');
 		if (schools) this.schools = new SC.Collections.Schools(schools.models, schools);
+		this.schools.bind('notFound', function() {
+		  this.navigate('notfound', true);
+		}, this);
 	},
 
 	beforeRoute: function(callback) {
@@ -44,27 +48,26 @@ SC.Routers.Social = Backbone.Router.extend({
 			permalink: permalink 
 		});
 
+    this.update.bind('modal:error', function() {
+      this.navigate('notfound', true);
+    }, this);
+
 		this.update.bind('modal:closed', function() {
 			this.navigate('school/'+id, true);
 		}, this);
 	},
-
-	_loadProfile: function(cacheCallback) {
-		// skip reloading the profile if currently viewing
-		if (this.schoolProfile) {
-			if (this.schoolProfile === this.schools.selection) {
-				return cacheCallback.call(this, true);
-			}
-		}
+	
+	notFound: function(path) {
+	  this._cleanUpModals();
+	  $('#social_page').html((new SC.Views.NotFound()).render().el);
 	},
 
 	_cleanUpModals: function(callback) {
+	  console.log('cleanup');
 		if (callback !== SC.Routers.Social.prototype.update) {
-			if ($('body').hasClass('modal-view')) {
-        $('#modal').remove();
-        $('#header, #wrapper, #footer').show();
-        $('body').removeClass('modal-view'); 
-			}
+      $('#modal').remove();
+      $('#header, #wrapper, #footer').show();
+      $('body').removeClass('modal-view'); 
 		}
 	}
 
