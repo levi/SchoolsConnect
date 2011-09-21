@@ -325,6 +325,13 @@ get_header(); ?>
 	</div>
 </script>
 
+<script type="text/template" id="template-update-modal-loading">
+	<div class="modal-loading">
+		<img src="<?php bloginfo('stylesheet_directory') ?>/images/social/profile_loader.gif" alt="Loading Update" />
+		<h3>Loading</h3>
+	</div>
+</script>
+
 <script type="text/template" id="template-update-modal">
 	<div class="modal-overlay">
 		<% if (title) { %>

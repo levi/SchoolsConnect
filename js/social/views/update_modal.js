@@ -2,13 +2,15 @@ SC.Views.UpdateModal = SC.Views.Modal.extend({
 
   template: _.template($('#template-update-modal').html()),
 
+  loadingTemplate: _.template($('#template-update-modal-loading').html()),
+
   events: {
     'click .close': 'close',
     'click .destroy': 'destroy'
   },
 
   initialize: function(options) {
-    _.bindAll(this, 'render', 'destroy');
+    _.bindAll(this, 'render', 'destroy', '_showLoading');
 
     this.model = options.model || new SC.Models.Update({ id: options.update_id, school_id: options.school_id });
     this.model.bind('change', this.render, this);
@@ -20,8 +22,13 @@ SC.Views.UpdateModal = SC.Views.Modal.extend({
   },
 
   render: function() {
+    var template = null;
     // Add a loading state
-    var template = (_.isUndefined(this.model.get('title'))) ? "Loading" : null;
+    if (_.isUndefined(this.model.get('title'))) {
+      template = this.loadingTemplate();
+      _.delay(this._showLoading, 300);
+    }
+
     SC.Views.Modal.prototype.render.call(this, template);
   },
 
@@ -33,6 +40,10 @@ SC.Views.UpdateModal = SC.Views.Modal.extend({
       }
     });
     return false;
+  },
+  
+  _showLoading: function() {
+    this.$('.modal-loading').show();
   }
 
 });

@@ -1161,6 +1161,18 @@ body.modal-view {
     z-index: 100;
 }
 
+.modal-loading {
+  display: none;
+  margin-top: 300px;
+  width: 100%;
+  text-align: center;
+  
+  h3 {
+    font-size: 14px;
+    color: #999;
+  }
+}
+
 .modal-toolbar {
     @include clearfix;
     max-width: 720px;
